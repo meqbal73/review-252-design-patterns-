@@ -1,96 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light" data-lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CPIT 252 — Design Patterns Cheat Sheet</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f0;color:#1a1a1a;font-size:14px;line-height:1.6;}
-  .page{max-width:960px;margin:0 auto;padding:2rem 1.5rem;}
-  h1{font-size:26px;font-weight:700;margin-bottom:4px;}
-  .subtitle{color:#666;font-size:14px;margin-bottom:2rem;}
-  .sec{margin-bottom:2.5rem;}
-  .sec-title{font-size:19px;font-weight:700;margin-bottom:1rem;padding:8px 14px;border-radius:8px;}
-  .sec-title.def{background:#e8e8e8;color:#1a1a1a;}
-  .sec-title.cr{background:#EEEDFE;color:#26215C;}
-  .sec-title.st{background:#E1F5EE;color:#04342C;}
-  .sec-title.bh{background:#FAEEDA;color:#412402;}
-  .sec-title.smell{background:#FCEBEB;color:#501313;}
-  .sec-title.mvc{background:#E6F1FB;color:#042C53;}
-  .box{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;margin-bottom:10px;}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-  .box-title{font-weight:700;font-size:14px;margin-bottom:5px;}
-  .box-body{font-size:13px;color:#444;line-height:1.6;}
-  .pat{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:13px 15px;margin-bottom:9px;}
-  .pat-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-  .pat-name{font-size:15px;font-weight:700;}
-  .badge{font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;}
-  .bcr{background:#EEEDFE;color:#3C3489;}
-  .bst{background:#E1F5EE;color:#085041;}
-  .bbh{background:#FAEEDA;color:#633806;}
-  .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#888;margin-top:8px;margin-bottom:2px;}
-  .val{font-size:13px;color:#333;line-height:1.55;}
-  .impl{font-size:12px;font-family:'Courier New',monospace;background:#f4f4f0;border:1px solid #e0e0e0;border-radius:6px;padding:7px 10px;margin-top:4px;line-height:1.6;color:#1a1a1a;}
-  .pills{margin-top:8px;}
-  .pill{display:inline-block;font-size:12px;background:#f0f0ec;color:#444;padding:3px 10px;border-radius:99px;margin:2px;}
-  .divider{height:1px;background:#e0e0e0;margin:2rem 0;}
-  .smell-box{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #E24B4A;}
-  .smell-name{font-size:14px;font-weight:700;color:#A32D2D;margin-bottom:4px;}
-  .smell-fix{background:#EAF3DE;border-radius:6px;padding:8px 10px;margin-top:6px;font-size:12.5px;color:#27500A;}
-  .code{font-size:12px;font-family:'Courier New',monospace;background:#f4f4f0;border:1px solid #e0e0e0;border-radius:6px;padding:8px 10px;margin-top:6px;line-height:1.6;color:#1a1a1a;white-space:pre;}
-  .mvc-row{display:grid;grid-template-columns:70px 1fr;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;margin-bottom:8px;}
-  .mvc-label{display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;background:#f4f4f0;}
-  .mvc-content{padding:11px 14px;background:#fff;}
-  .mvc-main{font-size:14px;font-weight:700;margin-bottom:3px;}
-  .mvc-sub{font-size:12.5px;color:#555;line-height:1.55;}
-  .comb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px;}
-  .comb-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:10px 12px;}
-  .comb-pat{font-size:13px;font-weight:700;margin-bottom:3px;}
-  .comb-where{font-size:12px;color:#555;}
-  .mcq-box{background:#E6F1FB;border-radius:8px;padding:12px 15px;margin-top:12px;font-size:13px;line-height:1.8;color:#042C53;}
-  .mcq-box strong{color:#042C53;}
-  @media(max-width:600px){.row2,.row3{grid-template-columns:1fr;}.mvc-row{grid-template-columns:50px 1fr;}}
-  @media print{body{background:#fff;}.page{padding:1rem;}}
+:root {
+  --bg: #f5f5f0; --bg2: #ffffff; --bg3: #f0f0eb; --bg4: #e8e8e2;
+  --text: #1a1a1a; --text2: #444; --text3: #666; --text4: #888;
+  --border: #e0e0d8; --border2: #d0d0c8;
+  --code-bg: #f4f4f0; --code-border: #e0e0d8; --code-text: #1a1a1a;
+  --cr-bg: #EEEDFE; --cr-text: #26215C; --cr-accent: #AFA9EC; --cr-badge: #3C3489;
+  --st-bg: #E1F5EE; --st-text: #04342C; --st-accent: #5DCAA5; --st-badge: #085041;
+  --bh-bg: #FAEEDA; --bh-text: #412402; --bh-accent: #EF9F27; --bh-badge: #633806;
+  --smell-bg: #FCEBEB; --smell-text: #501313; --smell-accent: #E24B4A;
+  --fix-bg: #EAF3DE; --fix-text: #27500A;
+  --mvc-bg: #E6F1FB; --mvc-text: #042C53;
+  --pill-bg: #ebebeb; --pill-text: #444;
+  --prin-bg: #FFF8E1; --prin-border: #F9A825; --prin-text: #5D4037;
+  --tip-bg: #E3F2FD; --tip-text: #0D47A1;
+}
+[data-theme="dark"] {
+  --bg: #141414; --bg2: #1e1e1e; --bg3: #252525; --bg4: #2d2d2d;
+  --text: #e8e8e8; --text2: #c8c8c8; --text3: #a0a0a0; --text4: #666;
+  --border: #2e2e2e; --border2: #3a3a3a;
+  --code-bg: #0d1117; --code-border: #30363d; --code-text: #c9d1d9;
+  --cr-bg: #1e1a3a; --cr-text: #c5bfff; --cr-accent: #534AB7; --cr-badge: #AFA9EC;
+  --st-bg: #0d2b22; --st-text: #7ddfb8; --st-accent: #0F6E56; --st-badge: #5DCAA5;
+  --bh-bg: #2a1f0a; --bh-text: #f5c97a; --bh-accent: #BA7517; --bh-badge: #EF9F27;
+  --smell-bg: #2a1010; --smell-text: #ff9999; --smell-accent: #A32D2D;
+  --fix-bg: #0d2000; --fix-text: #7dcc7d;
+  --mvc-bg: #0a1e30; --mvc-text: #7ec8f0;
+  --pill-bg: #2d2d2d; --pill-text: #aaa;
+  --prin-bg: #1e1800; --prin-border: #7a6000; --prin-text: #f5d070;
+  --tip-bg: #0a1e30; --tip-text: #7ec8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{transition:background .25s,color .25s;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;transition:background .25s,color .25s;}
+[data-lang="ar"] body,[data-lang="ar"] .page{direction:rtl;font-family:'Segoe UI',Tahoma,Arial,sans-serif;}
+[data-lang="ar"] .lbl,[data-lang="ar"] .sec-title{letter-spacing:0;}
+[data-lang="ar"] .impl,[data-lang="ar"] .code{direction:ltr;text-align:left;}
+.page{max-width:980px;margin:0 auto;padding:1.5rem;}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1.8rem;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;}
+.toolbar-title{font-size:17px;font-weight:700;}
+.toolbar-title small{font-size:12px;font-weight:400;color:var(--text3);margin-left:8px;}
+[data-lang="ar"] .toolbar-title small{margin-left:0;margin-right:8px;}
+.toggle-group{display:flex;gap:8px;}
+.tbtn{padding:6px 14px;border-radius:99px;border:1px solid var(--border2);background:transparent;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.tbtn:hover{background:var(--bg3);}
+.tbtn.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+
+/* ── SECTIONS ── */
+.sec{margin-bottom:2.2rem;}
+.sec-title{font-size:16px;font-weight:700;margin-bottom:1rem;padding:8px 14px;border-radius:8px;}
+.sec-title.def{background:var(--bg4);color:var(--text);}
+.sec-title.cr{background:var(--cr-bg);color:var(--cr-text);}
+.sec-title.st{background:var(--st-bg);color:var(--st-text);}
+.sec-title.bh{background:var(--bh-bg);color:var(--bh-text);}
+.sec-title.smell{background:var(--smell-bg);color:var(--smell-text);}
+.sec-title.mvc{background:var(--mvc-bg);color:var(--mvc-text);}
+
+/* ── BOXES ── */
+.box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.box-title{font-weight:700;font-size:14px;margin-bottom:5px;color:var(--text);}
+.box-body{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* ── PATTERN CARDS ── */
+.pat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;}
+.pat-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.pat-name{font-size:16px;font-weight:700;color:var(--text);}
+.badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
+.bcr{background:var(--cr-bg);color:var(--cr-badge);}
+.bst{background:var(--st-bg);color:var(--st-badge);}
+.bbh{background:var(--bh-bg);color:var(--bh-badge);}
+
+/* ── LABELS & VALUES ── */
+.lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text4);margin-top:10px;margin-bottom:3px;}
+.val{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* ── PRINCIPLE BOX ── */
+.prin{background:var(--prin-bg);border-left:3px solid var(--prin-border);border-radius:0 7px 7px 0;padding:8px 12px;margin-top:8px;font-size:12.5px;color:var(--prin-text);line-height:1.6;}
+[data-lang="ar"] .prin{border-left:none;border-right:3px solid var(--prin-border);border-radius:7px 0 0 7px;}
+.prin strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;opacity:.7;}
+
+/* ── CODE BLOCK ── */
+.code-wrap{margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid var(--code-border);}
+.code-header{display:flex;align-items:center;justify-content:space-between;background:var(--bg4);padding:6px 12px;border-bottom:1px solid var(--code-border);}
+.code-lang{font-size:11px;font-weight:700;color:var(--text4);text-transform:uppercase;letter-spacing:.05em;}
+.code-copy{font-size:11px;color:var(--text4);cursor:pointer;background:transparent;border:none;padding:2px 6px;border-radius:4px;}
+.code-copy:hover{background:var(--bg3);color:var(--text);}
+pre.code{margin:0;padding:14px 16px;font-family:'Courier New',Consolas,monospace;font-size:12px;background:var(--code-bg);color:var(--code-text);line-height:1.7;overflow-x:auto;white-space:pre;}
+/* syntax highlight classes */
+.kw{color:#c084fc;}[data-theme="light"] .kw{color:#7c3aed;}
+.cl{color:#60a5fa;}[data-theme="light"] .cl{color:#1d4ed8;}
+.fn{color:#34d399;}[data-theme="light"] .fn{color:#047857;}
+.st{color:#f9a8d4;}[data-theme="light"] .st{color:#9d174d;}
+.cm{color:#6b7280;}[data-theme="light"] .cm{color:#9ca3af;}
+.nm{color:#fb923c;}[data-theme="light"] .nm{color:#b45309;}
+
+/* ── PILLS ── */
+.pills{margin-top:8px;}
+.pill{display:inline-block;font-size:12px;background:var(--pill-bg);color:var(--pill-text);padding:3px 10px;border-radius:99px;margin:2px;}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:2rem 0;}
+
+/* ── SMELL ── */
+.smell-box{background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--smell-accent);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:12px;}
+[data-lang="ar"] .smell-box{border-left:1px solid var(--border);border-right:4px solid var(--smell-accent);border-radius:10px 0 0 10px;}
+.smell-name{font-size:14px;font-weight:700;color:var(--smell-text);margin-bottom:5px;}
+.smell-fix{background:var(--fix-bg);border-radius:6px;padding:8px 11px;margin-top:8px;font-size:12.5px;color:var(--fix-text);}
+
+/* ── MVC ── */
+.mvc-row{display:grid;grid-template-columns:70px 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px;}
+.mvc-label{display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;}
+.mvc-content{padding:11px 15px;background:var(--bg2);}
+.mvc-main{font-size:14px;font-weight:700;margin-bottom:3px;color:var(--text);}
+.mvc-sub{font-size:12.5px;color:var(--text2);line-height:1.55;}
+.comb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:10px;}
+.comb-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;}
+.comb-pat{font-size:13px;font-weight:700;margin-bottom:3px;color:var(--text);}
+.comb-where{font-size:12px;color:var(--text2);}
+.mcq-box{background:var(--mvc-bg);border-radius:8px;padding:13px 16px;margin-top:12px;font-size:13px;line-height:1.85;color:var(--mvc-text);}
+
+/* ── LANG VISIBILITY ── */
+.en{display:block;}
+.ar{display:none;}
+[data-lang="ar"] .en{display:none;}
+[data-lang="ar"] .ar{display:block;}
+.en-inline{display:inline;}
+.ar-inline{display:none;}
+[data-lang="ar"] .en-inline{display:none;}
+[data-lang="ar"] .ar-inline{display:inline;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){.row2,.row3{grid-template-columns:1fr;}.mvc-row{grid-template-columns:50px 1fr;}}
+@media print{.toolbar{display:none;}.page{padding:0.5rem;}body{background:#fff;color:#000;}}
 </style>
 </head>
 <body>
 <div class="page">
 
-<h1>CPIT 252 — Design Patterns</h1>
-<div class="subtitle">Complete exam cheat sheet — intent · usage · implementation · code smells · MVC</div>
-
-<!-- ───── WHAT ARE DESIGN PATTERNS ───── -->
-<div class="sec">
-  <div class="sec-title def">What are design patterns?</div>
-  <div class="box">
-    <div class="box-body"><strong>Proven, reusable solutions</strong> to commonly occurring problems in software design.<br>Not copy-paste code — they are <strong>ideas / templates</strong> you apply to your situation.</div>
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="toolbar-title">
+    <span class="en-inline">CPIT 252 — Design Patterns</span>
+    <span class="ar-inline">CPIT 252 — أنماط التصميم</span>
+    <small class="en-inline">Full Cheat Sheet</small>
+    <small class="ar-inline">ورقة مراجعة شاملة</small>
   </div>
-  <div class="row3">
-    <div class="box"><div class="box-title">Solve complex problems</div><div class="box-body">Give you a tested solution instead of inventing one from scratch.</div></div>
-    <div class="box"><div class="box-title">Improve readability</div><div class="box-body">Other developers recognize the pattern and understand your code faster.</div></div>
-    <div class="box"><div class="box-title">Loose coupling</div><div class="box-body">Add new features without breaking existing code. (Open/Closed Principle)</div></div>
+  <div class="toggle-group">
+    <button class="tbtn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="tbtn" id="btn-ar" onclick="setLang('ar')">ع</button>
+    <button class="tbtn active" id="btn-light" onclick="setTheme('light')">☀ Light</button>
+    <button class="tbtn" id="btn-dark" onclick="setTheme('dark')">☾ Dark</button>
   </div>
 </div>
 
-<!-- ───── 3 CATEGORIES ───── -->
+<!-- ═══════════════════════════════════════════
+     WHAT ARE DESIGN PATTERNS
+════════════════════════════════════════════ -->
 <div class="sec">
-  <div class="sec-title def">3 categories — one line each</div>
+  <div class="sec-title def">
+    <span class="en">What are design patterns?</span>
+    <span class="ar">ما هي أنماط التصميم؟</span>
+  </div>
+  <div class="box">
+    <div class="box-body">
+      <span class="en"><strong>Proven, reusable solutions</strong> to commonly occurring problems in software design. Not copy-paste code — they are <strong>ideas / templates</strong> you apply to your situation.</span>
+      <span class="ar"><strong>حلول مجربة وقابلة لإعادة الاستخدام</strong> لمشاكل متكررة في تصميم البرمجيات. ليست كودًا تنسخه — بل هي <strong>أفكار وقوالب</strong> تطبّقها على حالتك.</span>
+    </div>
+  </div>
   <div class="row3">
-    <div class="box" style="border-top:4px solid #AFA9EC;">
-      <div class="box-title" style="color:#3C3489;">Creational</div>
-      <div class="box-body">HOW objects are <strong>created</strong>.<br>Not just <code>new</code> — smarter ways to build objects.</div>
+    <div class="box">
+      <div class="box-title"><span class="en">Solve complex problems</span><span class="ar">حل المشاكل المعقدة</span></div>
+      <div class="box-body"><span class="en">Give you a tested solution instead of inventing one from scratch.</span><span class="ar">تمنحك حلًا مجربًا بدلًا من اختراع الحل من الصفر.</span></div>
+    </div>
+    <div class="box">
+      <div class="box-title"><span class="en">Improve readability</span><span class="ar">تحسين قراءة الكود</span></div>
+      <div class="box-body"><span class="en">Other developers recognize the pattern and understand your code faster.</span><span class="ar">المطورون الآخرون يتعرفون على النمط ويفهمون كودك بسرعة.</span></div>
+    </div>
+    <div class="box">
+      <div class="box-title"><span class="en">Loose coupling</span><span class="ar">ارتباط خفيف</span></div>
+      <div class="box-body"><span class="en">Add new features without breaking existing code. (Open/Closed Principle)</span><span class="ar">أضف ميزات جديدة دون كسر الكود الموجود. (مبدأ Open/Closed)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ OOP PRINCIPLES ═══ -->
+<div class="sec">
+  <div class="sec-title def"><span class="en">Core OOP design principles (exam favourite!)</span><span class="ar">مبادئ التصميم الأساسية (مهمة جداً في الاختبار!)</span></div>
+  <div class="row3">
+    <div class="box" style="border-top:3px solid #7c3aed;">
+      <div class="box-title" style="color:#7c3aed;"><span class="en">1. Program to interfaces</span><span class="ar">١. البرمجة للواجهات</span></div>
+      <div class="box-body"><span class="en">Write abstract classes/interfaces first. Client code uses the interface type, NOT the concrete class type.</span><span class="ar">اكتب الواجهات أولًا. الكود العميل يستخدم نوع الواجهة، وليس الكلاس الفعلي.</span></div>
+    </div>
+    <div class="box" style="border-top:3px solid #0891b2;">
+      <div class="box-title" style="color:#0891b2;"><span class="en">2. Single Responsibility (SRP)</span><span class="ar">٢. مبدأ المسؤولية الواحدة</span></div>
+      <div class="box-body"><span class="en">A class should have ONE job/responsibility only. If it does two things, split it.</span><span class="ar">الكلاس يجب أن يكون له وظيفة واحدة فقط. إذا كان يفعل شيئين، اقسمه.</span></div>
+    </div>
+    <div class="box" style="border-top:3px solid #059669;">
+      <div class="box-title" style="color:#059669;"><span class="en">3. Open/Closed Principle</span><span class="ar">٣. مبدأ Open/Closed</span></div>
+      <div class="box-body"><span class="en">Classes should be <strong>open for extension</strong> but <strong>closed for modification</strong>. Add new code, don't change old code.</span><span class="ar">الكلاسات يجب أن تكون <strong>مفتوحة للتوسع</strong> ومغلقة للتعديل. أضف كودًا جديدًا ولا تغير القديم.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3 CATEGORIES ═══ -->
+<div class="sec">
+  <div class="sec-title def"><span class="en">3 categories</span><span class="ar">٣ فئات</span></div>
+  <div class="row3">
+    <div class="box" style="border-top:4px solid var(--cr-accent);">
+      <div class="box-title" style="color:var(--cr-badge);"><span class="en">Creational</span><span class="ar">إنشائية</span></div>
+      <div class="box-body"><span class="en">HOW objects are <strong>created</strong>. Smarter than just <code>new</code>.</span><span class="ar">كيف يتم <strong>إنشاء</strong> الكائنات. أذكى من مجرد <code>new</code>.</span></div>
       <div class="pills"><span class="pill">Singleton</span><span class="pill">Prototype</span><span class="pill">Builder</span><span class="pill">Factory Method</span><span class="pill">Abstract Factory</span></div>
     </div>
-    <div class="box" style="border-top:4px solid #5DCAA5;">
-      <div class="box-title" style="color:#085041;">Structural</div>
-      <div class="box-body">HOW objects are <strong>composed</strong> and connected.</div>
+    <div class="box" style="border-top:4px solid var(--st-accent);">
+      <div class="box-title" style="color:var(--st-badge);"><span class="en">Structural</span><span class="ar">هيكلية</span></div>
+      <div class="box-body"><span class="en">HOW objects are <strong>composed</strong> and connected.</span><span class="ar">كيف يتم <strong>تركيب</strong> الكائنات وربطها.</span></div>
       <div class="pills"><span class="pill">Adapter</span><span class="pill">Bridge</span><span class="pill">Composite</span><span class="pill">Decorator</span><span class="pill">Facade</span><span class="pill">Flyweight</span><span class="pill">Proxy</span></div>
     </div>
-    <div class="box" style="border-top:4px solid #EF9F27;">
-      <div class="box-title" style="color:#633806;">Behavioral</div>
-      <div class="box-body">HOW objects <strong>communicate</strong> and share responsibilities.</div>
+    <div class="box" style="border-top:4px solid var(--bh-accent);">
+      <div class="box-title" style="color:var(--bh-badge);"><span class="en">Behavioral</span><span class="ar">سلوكية</span></div>
+      <div class="box-body"><span class="en">HOW objects <strong>communicate</strong> and share responsibility.</span><span class="ar">كيف تتواصل الكائنات وتشارك المسؤوليات.</span></div>
       <div class="pills"><span class="pill">Chain of Resp.</span><span class="pill">Command</span><span class="pill">Observer</span><span class="pill">Strategy</span><span class="pill">State</span><span class="pill">Iterator</span><span class="pill">Template Method</span><span class="pill">Memento</span><span class="pill">Mediator</span><span class="pill">Visitor</span><span class="pill">Interpreter</span></div>
     </div>
   </div>
@@ -98,545 +235,1056 @@
 
 <div class="divider"></div>
 
-<!-- ───── CREATIONAL ───── -->
+<!-- ═══════════════════════════════════════════
+     CREATIONAL PATTERNS
+════════════════════════════════════════════ -->
 <div class="sec">
-  <div class="sec-title cr">Creational patterns</div>
+  <div class="sec-title cr"><span class="en">Creational patterns</span><span class="ar">الأنماط الإنشائية</span></div>
 
+  <!-- SINGLETON -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Singleton</span><span class="badge bcr">Creational</span></div>
-    <div class="lbl">Intent</div><div class="val">Only ONE instance of a class exists in the whole app. Everyone shares it.</div>
-    <div class="lbl">When to use</div><div class="val">Database connection · App logger · Config settings — things shared and created only once.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">class Database {
-    private static Database instance;
-    private Database() { }          // private = no one can do new Database()
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Only ONE instance exists in the whole app. Everyone shares it.</span><span class="ar">نسخة واحدة فقط من الكلاس في كامل التطبيق. الجميع يشاركها.</span></div>
+    <div class="lbl"><span class="en">When to use</span><span class="ar">متى تستخدمه</span></div>
+    <div class="val"><span class="en">Database connection · App logger · Config settings</span><span class="ar">اتصال قاعدة البيانات · مسجّل التطبيق · إعدادات التكوين</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — the singleton class manages only one shared resource. The private constructor enforces this contract.</span>
+      <span class="ar">SRP — الكلاس يدير مورداً مشتركاً واحداً فقط. المُنشئ الخاص يُطبّق هذا العقد.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">Database</span> {
+    <span class="kw">private static</span> <span class="cl">Database</span> instance;
 
-    public static Database getInstance() {
-        if (instance == null)
-            instance = new Database();
-        return instance;
+    <span class="kw">private</span> <span class="cl">Database</span>() { }  <span class="cm">// no one can do: new Database()</span>
+
+    <span class="kw">public static</span> <span class="cl">Database</span> <span class="fn">getInstance</span>() {
+        <span class="kw">if</span> (instance == <span class="kw">null</span>)
+            instance = <span class="kw">new</span> <span class="cl">Database</span>();
+        <span class="kw">return</span> instance;
     }
+    <span class="kw">public void</span> <span class="fn">query</span>(<span class="cl">String</span> sql) { <span class="cm">/* run query */</span> }
 }
-// Usage
-Database db1 = Database.getInstance();
-Database db2 = Database.getInstance();
-// db1 == db2  → TRUE, same object</div>
+
+<span class="cm">// Usage</span>
+<span class="cl">Database</span> db1 = <span class="cl">Database</span>.<span class="fn">getInstance</span>();
+<span class="cl">Database</span> db2 = <span class="cl">Database</span>.<span class="fn">getInstance</span>();
+System.out.println(db1 == db2); <span class="cm">// true — same object</span></pre>
+    </div>
   </div>
 
+  <!-- PROTOTYPE -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Prototype</span><span class="badge bcr">Creational</span></div>
-    <div class="lbl">Intent</div><div class="val">Clone / copy an existing object instead of building a new one from scratch.</div>
-    <div class="lbl">When to use</div><div class="val">Game character duplication · Any object that is expensive to create.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">class Character implements Cloneable {
-    String name; int health;
-    public Character clone() {
-        return (Character) super.clone();
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Clone/copy an existing object instead of building a new one from scratch.</span><span class="ar">استنساخ كائن موجود بدلاً من بناء كائن جديد من الصفر.</span></div>
+    <div class="lbl"><span class="en">When to use</span><span class="ar">متى تستخدمه</span></div>
+    <div class="val"><span class="en">Game character duplication · Any expensive-to-create object</span><span class="ar">نسخ شخصية في لعبة · أي كائن تكلفة إنشائه عالية</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — client calls <code>clone()</code> on the Prototype interface without knowing the concrete class.</span>
+      <span class="ar">البرمجة للواجهات — الكود العميل يستدعي <code>clone()</code> على الواجهة دون معرفة الكلاس الفعلي.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">GameCharacter</span> <span class="kw">implements</span> <span class="cl">Cloneable</span> {
+    <span class="cl">String</span> name;
+    <span class="kw">int</span> health;
+    <span class="cl">String</span> weapon;
+
+    <span class="kw">public</span> <span class="cl">GameCharacter</span>(<span class="cl">String</span> name, <span class="kw">int</span> health, <span class="cl">String</span> weapon) {
+        <span class="kw">this</span>.name = name; <span class="kw">this</span>.health = health; <span class="kw">this</span>.weapon = weapon;
+    }
+    <span class="kw">public</span> <span class="cl">GameCharacter</span> <span class="fn">clone</span>() {
+        <span class="kw">try</span> { <span class="kw">return</span> (<span class="cl">GameCharacter</span>) <span class="kw">super</span>.clone(); }
+        <span class="kw">catch</span> (<span class="cl">CloneNotSupportedException</span> e) { <span class="kw">return null</span>; }
     }
 }
-Character c1 = new Character("Ali", 100);
-Character c2 = c1.clone();   // cheap copy
-c2.name = "Ali2";            // c1.name still "Ali"</div>
+
+<span class="cm">// Usage</span>
+<span class="cl">GameCharacter</span> c1 = <span class="kw">new</span> <span class="cl">GameCharacter</span>(<span class="st">"Ali"</span>, <span class="nm">100</span>, <span class="st">"Sword"</span>);
+<span class="cl">GameCharacter</span> c2 = c1.<span class="fn">clone</span>();  <span class="cm">// cheap copy — no new construction</span>
+c2.name = <span class="st">"Ali2"</span>;               <span class="cm">// c1.name still "Ali"</span></pre>
+    </div>
   </div>
 
+  <!-- BUILDER -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Builder</span><span class="badge bcr">Creational</span></div>
-    <div class="lbl">Intent</div><div class="val">Build complex objects step by step. Same building process, different results.</div>
-    <div class="lbl">When to use</div><div class="val">Burger with many optional items · HTTP request with many optional fields.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">Burger b = new Burger.Builder()
-    .withBun("sesame")
-    .withPatty("beef")
-    .withCheese()
-    .withSauce("bbq")
-    .build();
-// Builder holds each field. build() returns final object.</div>
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Build complex objects step by step. Same construction process, different results.</span><span class="ar">بناء كائنات معقدة خطوة بخطوة. نفس عملية البناء، نتائج مختلفة.</span></div>
+    <div class="lbl"><span class="en">When to use</span><span class="ar">متى تستخدمه</span></div>
+    <div class="val"><span class="en">Burger with optional items · HTTP request with optional fields</span><span class="ar">برغر بمكونات اختيارية · طلب HTTP بحقول اختيارية</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — separates the construction logic from the object itself. Open/Closed — add new optional fields without touching existing build methods.</span>
+      <span class="ar">SRP — يفصل منطق البناء عن الكائن نفسه. Open/Closed — أضف حقولاً اختيارية جديدة دون تعديل الكود الموجود.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">Burger</span> {
+    <span class="cl">String</span> bun, patty, sauce;
+    <span class="kw">boolean</span> cheese, lettuce;
+
+    <span class="kw">static class</span> <span class="cl">Builder</span> {
+        <span class="kw">private</span> <span class="cl">Burger</span> burger = <span class="kw">new</span> <span class="cl">Burger</span>();
+
+        <span class="kw">public</span> <span class="cl">Builder</span> <span class="fn">withBun</span>(<span class="cl">String</span> b)    { burger.bun = b;    <span class="kw">return this</span>; }
+        <span class="kw">public</span> <span class="cl">Builder</span> <span class="fn">withPatty</span>(<span class="cl">String</span> p)  { burger.patty = p;  <span class="kw">return this</span>; }
+        <span class="kw">public</span> <span class="cl">Builder</span> <span class="fn">withSauce</span>(<span class="cl">String</span> s)  { burger.sauce = s;  <span class="kw">return this</span>; }
+        <span class="kw">public</span> <span class="cl">Builder</span> <span class="fn">withCheese</span>()          { burger.cheese = <span class="kw">true</span>; <span class="kw">return this</span>; }
+        <span class="kw">public</span> <span class="cl">Burger</span>  <span class="fn">build</span>()               { <span class="kw">return</span> burger; }
+    }
+}
+
+<span class="cm">// Usage — fluent chain</span>
+<span class="cl">Burger</span> b = <span class="kw">new</span> <span class="cl">Burger</span>.<span class="cl">Builder</span>()
+    .<span class="fn">withBun</span>(<span class="st">"sesame"</span>)
+    .<span class="fn">withPatty</span>(<span class="st">"beef"</span>)
+    .<span class="fn">withCheese</span>()
+    .<span class="fn">withSauce</span>(<span class="st">"bbq"</span>)
+    .<span class="fn">build</span>();</pre>
+    </div>
   </div>
 
+  <!-- FACTORY METHOD -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Factory Method</span><span class="badge bcr">Creational</span></div>
-    <div class="lbl">Intent</div><div class="val">Parent says "create a transport" — subclass decides if it's a Truck or Ship.</div>
-    <div class="lbl">When to use</div><div class="val">When you don't know in advance which type to create. Easy to add new types later.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">abstract class Logistics {
-    abstract Transport createTransport(); // factory method
-    void planDelivery() { createTransport().deliver(); }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Parent defines "create a transport" — subclass decides Truck or Ship. Client never calls new directly.</span><span class="ar">الأب يحدد "أنشئ وسيلة نقل" — الابن يقرر Truck أو Ship. الكود العميل لا يستخدم new مباشرة.</span></div>
+    <div class="lbl"><span class="en">When to use</span><span class="ar">متى تستخدمه</span></div>
+    <div class="val"><span class="en">When you don't know which type to create. Easy to add new types later.</span><span class="ar">عندما لا تعرف مسبقاً أي نوع ستنشئ. سهولة إضافة أنواع جديدة.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Open/Closed — add a new transport type by adding a new subclass only. Program to interfaces — client uses Transport interface, not Truck or Ship.</span>
+      <span class="ar">Open/Closed — أضف نوع نقل جديد بإضافة كلاس فرعي فقط. البرمجة للواجهات — الكود العميل يستخدم واجهة Transport.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">Transport</span> { <span class="kw">void</span> <span class="fn">deliver</span>(); }
+
+<span class="kw">class</span> <span class="cl">Truck</span> <span class="kw">implements</span> <span class="cl">Transport</span> {
+    <span class="kw">public void</span> <span class="fn">deliver</span>() { System.out.println(<span class="st">"By road"</span>); }
 }
-class RoadLogistics extends Logistics {
-    Transport createTransport() { return new Truck(); }
+<span class="kw">class</span> <span class="cl">Ship</span> <span class="kw">implements</span> <span class="cl">Transport</span> {
+    <span class="kw">public void</span> <span class="fn">deliver</span>() { System.out.println(<span class="st">"By sea"</span>); }
 }
-class SeaLogistics extends Logistics {
-    Transport createTransport() { return new Ship(); }
-}</div>
+
+<span class="kw">abstract class</span> <span class="cl">Logistics</span> {
+    <span class="kw">abstract</span> <span class="cl">Transport</span> <span class="fn">createTransport</span>(); <span class="cm">// factory method</span>
+    <span class="kw">void</span> <span class="fn">planDelivery</span>() { <span class="fn">createTransport</span>().<span class="fn">deliver</span>(); }
+}
+<span class="kw">class</span> <span class="cl">RoadLogistics</span> <span class="kw">extends</span> <span class="cl">Logistics</span> {
+    <span class="cl">Transport</span> <span class="fn">createTransport</span>() { <span class="kw">return new</span> <span class="cl">Truck</span>(); }
+}
+<span class="kw">class</span> <span class="cl">SeaLogistics</span> <span class="kw">extends</span> <span class="cl">Logistics</span> {
+    <span class="cl">Transport</span> <span class="fn">createTransport</span>() { <span class="kw">return new</span> <span class="cl">Ship</span>(); }
+}</pre>
+    </div>
   </div>
 
+  <!-- ABSTRACT FACTORY -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Abstract Factory</span><span class="badge bcr">Creational</span></div>
-    <div class="lbl">Intent</div><div class="val">Create a whole FAMILY of related objects. Swap the factory = swap everything at once.</div>
-    <div class="lbl">When to use</div><div class="val">UI toolkit: WindowsFactory → Windows button + checkbox. MacFactory → Mac button + checkbox.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface UIFactory {
-    Button createButton();
-    Checkbox createCheckbox();
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Produce a whole FAMILY of related objects. Swap the factory = swap everything at once.</span><span class="ar">إنتاج عائلة كاملة من الكائنات المترابطة. استبدال المصنع = استبدال كل شيء دفعة واحدة.</span></div>
+    <div class="lbl"><span class="en">When to use</span><span class="ar">متى تستخدمه</span></div>
+    <div class="val"><span class="en">UI toolkit: MacFactory → Mac button + checkbox. WindowsFactory → Windows button + checkbox.</span><span class="ar">مجموعة واجهة: MacFactory تنتج زر وصندوق تحقق بأسلوب Mac. WindowsFactory بأسلوب Windows.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — client uses UIFactory interface. Open/Closed — new platform = new factory class only.</span>
+      <span class="ar">البرمجة للواجهات — الكود العميل يستخدم UIFactory. Open/Closed — منصة جديدة = كلاس مصنع جديد فقط.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">UIFactory</span> {
+    <span class="cl">Button</span>   <span class="fn">createButton</span>();
+    <span class="cl">Checkbox</span> <span class="fn">createCheckbox</span>();
 }
-class MacFactory implements UIFactory {
-    Button createButton()     { return new MacButton();   }
-    Checkbox createCheckbox() { return new MacCheckbox(); }
+<span class="kw">class</span> <span class="cl">MacFactory</span> <span class="kw">implements</span> <span class="cl">UIFactory</span> {
+    <span class="kw">public</span> <span class="cl">Button</span>   <span class="fn">createButton</span>()   { <span class="kw">return new</span> <span class="cl">MacButton</span>(); }
+    <span class="kw">public</span> <span class="cl">Checkbox</span> <span class="fn">createCheckbox</span>() { <span class="kw">return new</span> <span class="cl">MacCheckbox</span>(); }
 }
-// Swap MacFactory ↔ WindowsFactory = swap whole UI kit</div>
+<span class="kw">class</span> <span class="cl">WindowsFactory</span> <span class="kw">implements</span> <span class="cl">UIFactory</span> {
+    <span class="kw">public</span> <span class="cl">Button</span>   <span class="fn">createButton</span>()   { <span class="kw">return new</span> <span class="cl">WinButton</span>(); }
+    <span class="kw">public</span> <span class="cl">Checkbox</span> <span class="fn">createCheckbox</span>() { <span class="kw">return new</span> <span class="cl">WinCheckbox</span>(); }
+}
+
+<span class="cm">// Swap MacFactory ↔ WindowsFactory = swap entire UI kit</span>
+<span class="cl">UIFactory</span> factory = <span class="kw">new</span> <span class="cl">MacFactory</span>();
+factory.<span class="fn">createButton</span>().<span class="fn">render</span>();  <span class="cm">// Mac Button</span></pre>
+    </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ───── STRUCTURAL ───── -->
+<!-- ═══════════════════════════════════════════
+     STRUCTURAL PATTERNS
+════════════════════════════════════════════ -->
 <div class="sec">
-  <div class="sec-title st">Structural patterns</div>
+  <div class="sec-title st"><span class="en">Structural patterns</span><span class="ar">الأنماط الهيكلية</span></div>
 
+  <!-- ADAPTER -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Adapter</span><span class="badge bst">Structural</span></div>
-    <div class="lbl">Intent</div><div class="val">Make two incompatible interfaces work together. Like a power plug adapter.</div>
-    <div class="lbl">When to use</div><div class="val">Client sends city name. Library expects GPS coordinates. Adapter converts city → lat/lon → delegates.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">class FajrTimeAdapter implements FajrTimeCity {
-    private FajrTimeGeo geo;
-    FajrTimeAdapter(FajrTimeGeo geo) { this.geo = geo; }
-
-    public String getFajrTime(String city) {
-        double lat = getLatitude(city);
-        double lon = getLongitude(city);
-        return geo.getFajrTime(lat, lon); // delegate to adaptee
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Make two incompatible interfaces work together via a wrapper. Like a power plug adapter.</span><span class="ar">جعل واجهتين غير متوافقتين تعملان معاً عبر مُغلِّف. مثل محول التيار الكهربائي.</span></div>
+    <div class="lbl"><span class="en">When to use</span><span class="ar">متى تستخدمه</span></div>
+    <div class="val"><span class="en">Client sends city name. Library expects GPS coordinates. Adapter converts city → lat/lon → delegates.</span><span class="ar">الكود العميل يرسل اسم مدينة. المكتبة تتوقع إحداثيات GPS. المحوّل يحوّل الاسم → إحداثيات → يفوّض.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — client only knows FajrTimeCity interface, never FajrTimeGeo. Open/Closed — existing FajrTimeGeo is untouched, we wrap it.</span>
+      <span class="ar">البرمجة للواجهات — الكود العميل يعرف فقط FajrTimeCity. Open/Closed — لا نعدّل FajrTimeGeo، نلفّه فقط.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="cm">// Target interface (what client expects)</span>
+<span class="kw">interface</span> <span class="cl">FajrTimeCity</span> {
+    <span class="cl">String</span> <span class="fn">getFajrTime</span>(<span class="cl">String</span> cityName);
+}
+<span class="cm">// Adaptee (existing, incompatible)</span>
+<span class="kw">class</span> <span class="cl">FajrTimeGeo</span> {
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">getFajrTime</span>(<span class="kw">double</span> lat, <span class="kw">double</span> lon) {
+        <span class="kw">return</span> <span class="st">"Fajr time is 5:39 AM"</span>;
     }
-}</div>
+}
+<span class="cm">// Adapter — bridges the two</span>
+<span class="kw">class</span> <span class="cl">FajrTimeAdapter</span> <span class="kw">implements</span> <span class="cl">FajrTimeCity</span> {
+    <span class="kw">private</span> <span class="cl">FajrTimeGeo</span> geo;
+
+    <span class="kw">public</span> <span class="cl">FajrTimeAdapter</span>(<span class="cl">FajrTimeGeo</span> geo) { <span class="kw">this</span>.geo = geo; }
+
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">getFajrTime</span>(<span class="cl">String</span> city) {
+        <span class="kw">double</span> lat = <span class="fn">getLatitude</span>(city);
+        <span class="kw">double</span> lon = <span class="fn">getLongitude</span>(city);
+        <span class="kw">return</span> geo.<span class="fn">getFajrTime</span>(lat, lon); <span class="cm">// delegate</span>
+    }
+    <span class="kw">private double</span> <span class="fn">getLatitude</span>(<span class="cl">String</span> c)  { <span class="kw">return</span> <span class="nm">21.5433</span>; }
+    <span class="kw">private double</span> <span class="fn">getLongitude</span>(<span class="cl">String</span> c) { <span class="kw">return</span> <span class="nm">39.1728</span>; }
+}</pre>
+    </div>
   </div>
 
+  <!-- BRIDGE -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Bridge</span><span class="badge bst">Structural</span></div>
-    <div class="lbl">Intent</div><div class="val">Separate "what it is" from "how it works" so both can change independently.</div>
-    <div class="lbl">When to use</div><div class="val">Shape (Circle/Square) + Color (Red/Blue) — combine freely without a class explosion.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">abstract class Shape {
-    protected Color color;               // holds implementation
-    Shape(Color c) { color = c; }
-    abstract void draw();
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Separate "what it is" (abstraction) from "how it works" (implementation) so both can vary independently.</span><span class="ar">فصل "ما هو" (التجريد) عن "كيف يعمل" (التطبيق) حتى يتغير كل منهما باستقلالية.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — Shape holds a Color interface reference, not a concrete Red or Blue. Avoids class explosion.</span>
+      <span class="ar">البرمجة للواجهات — Shape تحمل مرجع لواجهة Color لا لكلاس محدد. تتجنب انفجار عدد الكلاسات.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">Color</span> { <span class="cl">String</span> <span class="fn">fill</span>(); }
+<span class="kw">class</span> <span class="cl">Red</span>  <span class="kw">implements</span> <span class="cl">Color</span> { <span class="kw">public</span> <span class="cl">String</span> <span class="fn">fill</span>() { <span class="kw">return</span> <span class="st">"red"</span>; } }
+<span class="kw">class</span> <span class="cl">Blue</span> <span class="kw">implements</span> <span class="cl">Color</span> { <span class="kw">public</span> <span class="cl">String</span> <span class="fn">fill</span>() { <span class="kw">return</span> <span class="st">"blue"</span>; } }
+
+<span class="kw">abstract class</span> <span class="cl">Shape</span> {
+    <span class="kw">protected</span> <span class="cl">Color</span> color; <span class="cm">// bridge to implementation</span>
+    <span class="kw">public</span> <span class="cl">Shape</span>(<span class="cl">Color</span> c) { <span class="kw">this</span>.color = c; }
+    <span class="kw">abstract void</span> <span class="fn">draw</span>();
 }
-class Circle extends Shape {
-    void draw() { System.out.println("Circle in " + color.fill()); }
+<span class="kw">class</span> <span class="cl">Circle</span> <span class="kw">extends</span> <span class="cl">Shape</span> {
+    <span class="kw">public</span> <span class="cl">Circle</span>(<span class="cl">Color</span> c) { <span class="kw">super</span>(c); }
+    <span class="kw">public void</span> <span class="fn">draw</span>() { System.out.println(<span class="st">"Circle in "</span> + color.<span class="fn">fill</span>()); }
 }
-// Circle+Red, Circle+Blue, Square+Red... all work with 2+2 classes</div>
+
+<span class="cm">// 2 shapes × 2 colors = 4 combos, only 4 classes (not 4 subclasses!)</span>
+<span class="kw">new</span> <span class="cl">Circle</span>(<span class="kw">new</span> <span class="cl">Red</span>()).<span class="fn">draw</span>();   <span class="cm">// Circle in red</span>
+<span class="kw">new</span> <span class="cl">Circle</span>(<span class="kw">new</span> <span class="cl">Blue</span>()).<span class="fn">draw</span>();  <span class="cm">// Circle in blue</span></pre>
+    </div>
   </div>
 
+  <!-- COMPOSITE -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Composite</span><span class="badge bst">Structural</span></div>
-    <div class="lbl">Intent</div><div class="val">Treat a single object and a group of objects the SAME way. Tree structure.</div>
-    <div class="lbl">When to use</div><div class="val">File system: File and Folder both have getSize(). Folder's size = sum of its children's sizes.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface FileSystemItem { int getSize(); }
-class File implements FileSystemItem {
-    int size;
-    public int getSize() { return size; }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Treat a single object and a group of objects the SAME way. Tree structure (part-whole).</span><span class="ar">معاملة الكائن الواحد والمجموعة بنفس الطريقة. هيكل شجرة (جزء-كل).</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — both File and Folder implement FileSystemItem. Client never checks "is this a file or folder?"</span>
+      <span class="ar">البرمجة للواجهات — كلٌّ من File و Folder تطبّق FileSystemItem. الكود العميل لا يتحقق "هل هذا ملف أم مجلد؟"</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">FileSystemItem</span> { <span class="kw">int</span> <span class="fn">getSize</span>(); }
+
+<span class="kw">class</span> <span class="cl">File</span> <span class="kw">implements</span> <span class="cl">FileSystemItem</span> {
+    <span class="kw">int</span> size;
+    <span class="kw">public int</span> <span class="fn">getSize</span>() { <span class="kw">return</span> size; }
 }
-class Folder implements FileSystemItem {
-    List&lt;FileSystemItem&gt; children = new ArrayList&lt;&gt;();
-    public int getSize() {
-        return children.stream().mapToInt(FileSystemItem::getSize).sum();
+<span class="kw">class</span> <span class="cl">Folder</span> <span class="kw">implements</span> <span class="cl">FileSystemItem</span> {
+    <span class="cl">List</span>&lt;<span class="cl">FileSystemItem</span>&gt; children = <span class="kw">new</span> <span class="cl">ArrayList</span>&lt;&gt;();
+    <span class="kw">public void</span> <span class="fn">add</span>(<span class="cl">FileSystemItem</span> i) { children.<span class="fn">add</span>(i); }
+    <span class="kw">public int</span> <span class="fn">getSize</span>() {
+        <span class="kw">return</span> children.stream().<span class="fn">mapToInt</span>(<span class="cl">FileSystemItem</span>::getSize).<span class="fn">sum</span>();
     }
-}</div>
+}
+
+<span class="cm">// Same call works on both File and Folder</span>
+<span class="cl">Folder</span> root = <span class="kw">new</span> <span class="cl">Folder</span>();
+root.<span class="fn">add</span>(<span class="kw">new</span> <span class="cl">File</span>(<span class="nm">5</span>));  root.<span class="fn">add</span>(<span class="kw">new</span> <span class="cl">File</span>(<span class="nm">20</span>));
+System.out.println(root.<span class="fn">getSize</span>()); <span class="cm">// 25</span></pre>
+    </div>
   </div>
 
+  <!-- DECORATOR -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Decorator</span><span class="badge bst">Structural</span></div>
-    <div class="lbl">Intent</div><div class="val">Add new behavior to an object by WRAPPING it — without changing its class. Stack layers.</div>
-    <div class="lbl">When to use</div><div class="val">Coffee: SimpleCoffee → wrap with Milk → wrap with Sugar. Each wrapper adds cost + description.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">abstract class CoffeeDecorator implements Coffee {
-    protected Coffee coffee;
-    CoffeeDecorator(Coffee c) { coffee = c; }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Add new behavior by WRAPPING an object — without changing its class. Stack layers dynamically.</span><span class="ar">إضافة سلوك جديد بلفّ الكائن — دون تغيير كلاسه. تراكم الطبقات بشكل ديناميكي.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Open/Closed — add behaviors without modifying Coffee class. Program to interfaces — every decorator implements Coffee.</span>
+      <span class="ar">Open/Closed — أضف سلوكاً دون تعديل كلاس Coffee. البرمجة للواجهات — كل محسّن يطبّق واجهة Coffee.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">Coffee</span> { <span class="cl">String</span> <span class="fn">getDesc</span>(); <span class="kw">double</span> <span class="fn">getCost</span>(); }
+
+<span class="kw">class</span> <span class="cl">SimpleCoffee</span> <span class="kw">implements</span> <span class="cl">Coffee</span> {
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">getDesc</span>() { <span class="kw">return</span> <span class="st">"Coffee"</span>; }
+    <span class="kw">public double</span> <span class="fn">getCost</span>() { <span class="kw">return</span> <span class="nm">1.0</span>; }
 }
-class MilkDecorator extends CoffeeDecorator {
-    public double getCost()        { return coffee.getCost() + 0.5; }
-    public String getDescription() { return coffee.getDescription() + ", Milk"; }
+<span class="kw">abstract class</span> <span class="cl">CoffeeDecorator</span> <span class="kw">implements</span> <span class="cl">Coffee</span> {
+    <span class="kw">protected</span> <span class="cl">Coffee</span> coffee;
+    <span class="kw">public</span> <span class="cl">CoffeeDecorator</span>(<span class="cl">Coffee</span> c) { <span class="kw">this</span>.coffee = c; }
 }
-// Usage: new SugarDecorator(new MilkDecorator(new SimpleCoffee()))</div>
+<span class="kw">class</span> <span class="cl">MilkDecorator</span> <span class="kw">extends</span> <span class="cl">CoffeeDecorator</span> {
+    <span class="kw">public</span> <span class="cl">MilkDecorator</span>(<span class="cl">Coffee</span> c) { <span class="kw">super</span>(c); }
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">getDesc</span>() { <span class="kw">return</span> coffee.<span class="fn">getDesc</span>() + <span class="st">", Milk"</span>; }
+    <span class="kw">public double</span> <span class="fn">getCost</span>() { <span class="kw">return</span> coffee.<span class="fn">getCost</span>() + <span class="nm">0.5</span>; }
+}
+<span class="kw">class</span> <span class="cl">SugarDecorator</span> <span class="kw">extends</span> <span class="cl">CoffeeDecorator</span> {
+    <span class="kw">public</span> <span class="cl">SugarDecorator</span>(<span class="cl">Coffee</span> c) { <span class="kw">super</span>(c); }
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">getDesc</span>() { <span class="kw">return</span> coffee.<span class="fn">getDesc</span>() + <span class="st">", Sugar"</span>; }
+    <span class="kw">public double</span> <span class="fn">getCost</span>() { <span class="kw">return</span> coffee.<span class="fn">getCost</span>() + <span class="nm">0.25</span>; }
+}
+
+<span class="cm">// Stack decorators</span>
+<span class="cl">Coffee</span> c = <span class="kw">new</span> <span class="cl">SugarDecorator</span>(<span class="kw">new</span> <span class="cl">MilkDecorator</span>(<span class="kw">new</span> <span class="cl">SimpleCoffee</span>()));
+System.out.println(c.<span class="fn">getDesc</span>()); <span class="cm">// Coffee, Milk, Sugar</span>
+System.out.println(c.<span class="fn">getCost</span>()); <span class="cm">// 1.75</span></pre>
+    </div>
   </div>
 
+  <!-- FACADE -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Facade</span><span class="badge bst">Structural</span></div>
-    <div class="lbl">Intent</div><div class="val">One simple interface hides a complex subsystem. One call does everything.</div>
-    <div class="lbl">When to use</div><div class="val">HomeTheater.watchMovie() → dims lights + turns on TV + sets sound. Client calls ONE method.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">class HomeTheaterFacade {
-    TV tv; SoundSystem sound; Lights lights;
-    void watchMovie() {
-        lights.dim(20);
-        tv.on(); tv.setInput("HDMI");
-        sound.on(); sound.setVolume(30);
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">One simple interface hides a complex subsystem. Client calls ONE method instead of many.</span><span class="ar">واجهة بسيطة واحدة تخفي نظاماً فرعياً معقداً. الكود العميل يستدعي طريقة واحدة بدلاً من كثير.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — each subsystem class has its own job. The Facade just coordinates them. Reduces coupling between client and subsystem.</span>
+      <span class="ar">SRP — كل كلاس في النظام الفرعي له وظيفة واحدة. الـ Facade يُنسّق فقط. يقلل الارتباط بين العميل والنظام.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">TV</span>          { <span class="kw">void</span> <span class="fn">on</span>() { System.out.println(<span class="st">"TV on"</span>); } }
+<span class="kw">class</span> <span class="cl">SoundSystem</span> { <span class="kw">void</span> <span class="fn">on</span>() { System.out.println(<span class="st">"Sound on"</span>); }
+                     <span class="kw">void</span> <span class="fn">setVolume</span>(<span class="kw">int</span> v) {} }
+<span class="kw">class</span> <span class="cl">Lights</span>      { <span class="kw">void</span> <span class="fn">dim</span>(<span class="kw">int</span> pct) { System.out.println(<span class="st">"Lights at "</span>+pct+<span class="st">"%"</span>); } }
+
+<span class="cm">// Facade — one simple method</span>
+<span class="kw">class</span> <span class="cl">HomeTheaterFacade</span> {
+    <span class="kw">private</span> <span class="cl">TV</span> tv = <span class="kw">new</span> <span class="cl">TV</span>();
+    <span class="kw">private</span> <span class="cl">SoundSystem</span> sound = <span class="kw">new</span> <span class="cl">SoundSystem</span>();
+    <span class="kw">private</span> <span class="cl">Lights</span> lights = <span class="kw">new</span> <span class="cl">Lights</span>();
+
+    <span class="kw">public void</span> <span class="fn">watchMovie</span>() {
+        lights.<span class="fn">dim</span>(<span class="nm">20</span>);
+        tv.<span class="fn">on</span>();
+        sound.<span class="fn">on</span>(); sound.<span class="fn">setVolume</span>(<span class="nm">30</span>);
+        System.out.println(<span class="st">"Enjoy!"</span>);
     }
 }
-// Client only needs: theater.watchMovie();</div>
+
+<span class="cm">// Client only needs ONE call</span>
+<span class="kw">new</span> <span class="cl">HomeTheaterFacade</span>().<span class="fn">watchMovie</span>();</pre>
+    </div>
   </div>
 
+  <!-- FLYWEIGHT -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Flyweight</span><span class="badge bst">Structural</span></div>
-    <div class="lbl">Intent</div><div class="val">Save memory by SHARING the common (intrinsic) state across thousands of objects.</div>
-    <div class="lbl">When to use</div><div class="val">Forest: 1M trees but only 2 tree types. Type/texture = shared (intrinsic). x,y position = unique (extrinsic).</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">class TreeType { String name, texture; void draw(int x, int y){...} }  // shared
-
-class TreeFactory {
-    static Map&lt;String,TreeType&gt; cache = new HashMap&lt;&gt;();
-    static TreeType get(String name, String tex) {
-        return cache.computeIfAbsent(name, k -&gt; new TreeType(name,tex));
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Save memory by SHARING intrinsic (common) state. Extrinsic (unique) state is passed in at runtime.</span><span class="ar">توفير الذاكرة بمشاركة الحالة الداخلية المشتركة. الحالة الخارجية الفريدة تُمرَّر عند التشغيل.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — TreeType manages shared state only. Tree manages unique position only. Clean separation of concerns.</span>
+      <span class="ar">SRP — TreeType تدير الحالة المشتركة فقط. Tree تدير الموقع الفريد فقط. فصل واضح للمسؤوليات.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="cm">// Flyweight — shared (intrinsic) state</span>
+<span class="kw">class</span> <span class="cl">TreeType</span> {
+    <span class="cl">String</span> name, texture;
+    <span class="kw">void</span> <span class="fn">draw</span>(<span class="kw">int</span> x, <span class="kw">int</span> y) {
+        System.out.println(<span class="st">"Drawing "</span> + name + <span class="st">" at ("</span>+x+<span class="st">","</span>+y+<span class="st">")"</span>);
     }
 }
-class Tree { int x,y; TreeType type; }  // unique position per tree</div>
+<span class="cm">// Factory — returns cached flyweights</span>
+<span class="kw">class</span> <span class="cl">TreeFactory</span> {
+    <span class="kw">static</span> <span class="cl">Map</span>&lt;<span class="cl">String</span>,<span class="cl">TreeType</span>&gt; cache = <span class="kw">new</span> <span class="cl">HashMap</span>&lt;&gt;();
+    <span class="kw">static</span> <span class="cl">TreeType</span> <span class="fn">get</span>(<span class="cl">String</span> name, <span class="cl">String</span> tex) {
+        <span class="kw">return</span> cache.<span class="fn">computeIfAbsent</span>(name, k -> <span class="kw">new</span> <span class="cl">TreeType</span>());
+    }
+}
+<span class="cm">// Context — unique (extrinsic) state only</span>
+<span class="kw">class</span> <span class="cl">Tree</span> {
+    <span class="kw">int</span> x, y; <span class="cl">TreeType</span> type;
+    <span class="kw">void</span> <span class="fn">draw</span>() { type.<span class="fn">draw</span>(x, y); }
+}
+<span class="cm">// 1,000,000 Trees — only 2 TreeType objects in memory!</span></pre>
+    </div>
   </div>
 
+  <!-- PROXY -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Proxy</span><span class="badge bst">Structural</span></div>
-    <div class="lbl">Intent</div><div class="val">A stand-in that controls access to the real object. Same interface. Adds validation / lazy-load / cache.</div>
-    <div class="lbl">When to use</div><div class="val">SpeechToText Proxy: checks API key first. If valid → create real service + delegate. If invalid → deny access.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">class SpeechProxy implements SpeechToTextService {
-    private RealSpeechToText real;
-    private String apiKey;
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">A stand-in that controls access to the real object. Same interface. Adds validation / lazy-load / caching.</span><span class="ar">بديل يتحكم في الوصول للكائن الحقيقي. نفس الواجهة. يضيف تحقق / تحميل متأخر / تخزين مؤقت.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — client uses SpeechToTextService, never cares if it's Proxy or Real. Open/Closed — adding caching = new proxy class, no change to real service.</span>
+      <span class="ar">البرمجة للواجهات — العميل يستخدم SpeechToTextService دون اهتمام هل هو Proxy أم حقيقي. Open/Closed — إضافة التخزين المؤقت = كلاس Proxy جديد فقط.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">SpeechToTextService</span> {
+    <span class="cl">String</span> <span class="fn">convertSpeechToText</span>(<span class="cl">String</span> audioFile);
+}
+<span class="kw">class</span> <span class="cl">RealSpeechToText</span> <span class="kw">implements</span> <span class="cl">SpeechToTextService</span> {
+    <span class="kw">public</span> <span class="cl">RealSpeechToText</span>() { System.out.println(<span class="st">"Loading model..."</span>); }
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">convertSpeechToText</span>(<span class="cl">String</span> f) { <span class="kw">return</span> <span class="st">"Transcription"</span>; }
+}
+<span class="cm">// Protection Proxy — validates before delegating</span>
+<span class="kw">class</span> <span class="cl">SpeechToTextProxy</span> <span class="kw">implements</span> <span class="cl">SpeechToTextService</span> {
+    <span class="kw">private</span> <span class="cl">RealSpeechToText</span> real; <span class="cm">// lazy — not created yet</span>
+    <span class="kw">private</span> <span class="cl">String</span> apiKey;
 
-    public String convertSpeechToText(String file) {
-        if (!isValid()) return "Access denied";
-        if (real == null) real = new RealSpeechToText(); // lazy init
-        return real.convertSpeechToText(file);
+    <span class="kw">public</span> <span class="cl">SpeechToTextProxy</span>(<span class="cl">String</span> key) { <span class="kw">this</span>.apiKey = key; }
+
+    <span class="kw">private boolean</span> <span class="fn">isValid</span>() { <span class="kw">return</span> apiKey != <span class="kw">null</span> && !apiKey.<span class="fn">isEmpty</span>(); }
+
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">convertSpeechToText</span>(<span class="cl">String</span> file) {
+        <span class="kw">if</span> (!<span class="fn">isValid</span>()) <span class="kw">return</span> <span class="st">"Access denied"</span>;
+        <span class="kw">if</span> (real == <span class="kw">null</span>) real = <span class="kw">new</span> <span class="cl">RealSpeechToText</span>(); <span class="cm">// lazy init</span>
+        <span class="kw">return</span> real.<span class="fn">convertSpeechToText</span>(file);
     }
-    private boolean isValid() { return apiKey != null &amp;&amp; !apiKey.isEmpty(); }
-}</div>
+}</pre>
+    </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ───── BEHAVIORAL ───── -->
+<!-- ═══════════════════════════════════════════
+     BEHAVIORAL PATTERNS
+════════════════════════════════════════════ -->
 <div class="sec">
-  <div class="sec-title bh">Behavioral patterns</div>
+  <div class="sec-title bh"><span class="en">Behavioral patterns</span><span class="ar">الأنماط السلوكية</span></div>
 
+  <!-- CHAIN OF RESPONSIBILITY -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Chain of Responsibility</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Pass a request along a chain. Each handler processes it OR passes it to the next one.</div>
-    <div class="lbl">When to use</div><div class="val">Support tickets: Level1 → Level2 → Level3 Manager. Each handles what it can.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">abstract class Handler {
-    protected Handler next;
-    void setNext(Handler h) { next = h; }
-    abstract void handle(int level);
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Pass a request along a chain. Each handler processes it OR passes it to the next one.</span><span class="ar">تمرير الطلب على سلسلة. كل معالج إما يعالجه أو يمرره للتالي.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Open/Closed — add a new level by adding a new handler class. SRP — each handler has one decision: handle or forward.</span>
+      <span class="ar">Open/Closed — أضف مستوى جديداً بإضافة كلاس معالج جديد. SRP — كل معالج له قرار واحد: يعالج أو يمرر.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">abstract class</span> <span class="cl">SupportHandler</span> {
+    <span class="kw">protected</span> <span class="cl">SupportHandler</span> next;
+    <span class="kw">public void</span> <span class="fn">setNext</span>(<span class="cl">SupportHandler</span> h) { next = h; }
+    <span class="kw">public abstract void</span> <span class="fn">handle</span>(<span class="kw">int</span> level);
 }
-class Level1 extends Handler {
-    void handle(int level) {
-        if (level == 1) System.out.println("L1 handled");
-        else if (next != null) next.handle(level); // pass forward
+<span class="kw">class</span> <span class="cl">Level1</span> <span class="kw">extends</span> <span class="cl">SupportHandler</span> {
+    <span class="kw">public void</span> <span class="fn">handle</span>(<span class="kw">int</span> level) {
+        <span class="kw">if</span> (level == <span class="nm">1</span>) System.out.println(<span class="st">"Level1 handled"</span>);
+        <span class="kw">else if</span> (next != <span class="kw">null</span>) next.<span class="fn">handle</span>(level); <span class="cm">// pass forward</span>
     }
-}</div>
+}
+<span class="kw">class</span> <span class="cl">Level2</span> <span class="kw">extends</span> <span class="cl">SupportHandler</span> {
+    <span class="kw">public void</span> <span class="fn">handle</span>(<span class="kw">int</span> level) {
+        <span class="kw">if</span> (level == <span class="nm">2</span>) System.out.println(<span class="st">"Level2 handled"</span>);
+        <span class="kw">else if</span> (next != <span class="kw">null</span>) next.<span class="fn">handle</span>(level);
+    }
+}
+<span class="cm">// Build chain: L1 → L2 → L3</span>
+<span class="cl">Level1</span> l1 = <span class="kw">new</span> <span class="cl">Level1</span>(); <span class="cl">Level2</span> l2 = <span class="kw">new</span> <span class="cl">Level2</span>();
+l1.<span class="fn">setNext</span>(l2);
+l1.<span class="fn">handle</span>(<span class="nm">2</span>); <span class="cm">// Level2 handled</span></pre>
+    </div>
   </div>
 
+  <!-- COMMAND -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Command</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Wrap a request as an object so you can queue it, log it, or UNDO it.</div>
-    <div class="lbl">When to use</div><div class="val">Text editor Undo/Redo: every action = Command object. Stack stores history. Undo = pop + call undo().</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface Command { void execute(); void undo(); }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Wrap a request as an object — enables undo, queue, logging.</span><span class="ar">لفّ الطلب ككائن — يُمكّن التراجع والطابور والتسجيل.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — Command encapsulates ONE action. Open/Closed — new action = new Command class, no change to invoker/editor.</span>
+      <span class="ar">SRP — Command يغلّف إجراءً واحداً. Open/Closed — إجراء جديد = كلاس Command جديد فقط.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">Command</span> { <span class="kw">void</span> <span class="fn">execute</span>(); <span class="kw">void</span> <span class="fn">undo</span>(); }
 
-class WriteCommand implements Command {
-    TextEditor editor; String text;
-    void execute() { editor.write(text); }
-    void undo()    { editor.deleteLast(text.length()); }
+<span class="kw">class</span> <span class="cl">WriteCommand</span> <span class="kw">implements</span> <span class="cl">Command</span> {
+    <span class="kw">private</span> <span class="cl">TextEditor</span> editor; <span class="kw">private</span> <span class="cl">String</span> text;
+    <span class="kw">public</span> <span class="cl">WriteCommand</span>(<span class="cl">TextEditor</span> e, <span class="cl">String</span> t) { editor=e; text=t; }
+    <span class="kw">public void</span> <span class="fn">execute</span>() { editor.<span class="fn">write</span>(text); }
+    <span class="kw">public void</span> <span class="fn">undo</span>()    { editor.<span class="fn">deleteLast</span>(text.<span class="fn">length</span>()); }
 }
-// Invoker stores Stack&lt;Command&gt;. run() pushes. undo() pops.</div>
+
+<span class="cm">// Invoker — holds undo history</span>
+<span class="kw">class</span> <span class="cl">EditorInvoker</span> {
+    <span class="kw">private</span> <span class="cl">Stack</span>&lt;<span class="cl">Command</span>&gt; history = <span class="kw">new</span> <span class="cl">Stack</span>&lt;&gt;();
+    <span class="kw">public void</span> <span class="fn">run</span>(<span class="cl">Command</span> c)  { c.<span class="fn">execute</span>(); history.<span class="fn">push</span>(c); }
+    <span class="kw">public void</span> <span class="fn">undo</span>() { <span class="kw">if</span> (!history.<span class="fn">isEmpty</span>()) history.<span class="fn">pop</span>().<span class="fn">undo</span>(); }
+}
+
+<span class="cm">// Usage</span>
+<span class="cl">TextEditor</span> editor = <span class="kw">new</span> <span class="cl">TextEditor</span>();
+<span class="cl">EditorInvoker</span> inv = <span class="kw">new</span> <span class="cl">EditorInvoker</span>();
+inv.<span class="fn">run</span>(<span class="kw">new</span> <span class="cl">WriteCommand</span>(editor, <span class="st">"Hello"</span>));
+inv.<span class="fn">run</span>(<span class="kw">new</span> <span class="cl">WriteCommand</span>(editor, <span class="st">" World"</span>));
+inv.<span class="fn">undo</span>(); <span class="cm">// removes " World"</span></pre>
+    </div>
   </div>
 
+  <!-- OBSERVER -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Observer</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Subject notifies ALL observers automatically when its state changes. One-to-many.</div>
-    <div class="lbl">When to use</div><div class="val">Player scores points → all Fans notified. Model changes → all Views refresh (this is MVC!).</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">// Subject interface: attach(), detach(), notifyObservers()
-// Observer interface: update(Player p)
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">One subject notifies ALL observers automatically when it changes state. One-to-many relationship.</span><span class="ar">الموضوع يُخطر جميع المراقبين تلقائياً عند تغيير حالته. علاقة واحد-لكثير.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — Subject uses Observer interface, never knows concrete Fan. Open/Closed — add new observer type without changing Player.</span>
+      <span class="ar">البرمجة للواجهات — Subject يستخدم واجهة Observer، لا يعرف Fan المحدد. Open/Closed — أضف نوع مراقب جديد دون تغيير Player.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">Observer</span> { <span class="kw">void</span> <span class="fn">update</span>(<span class="cl">Player</span> p); }
 
-class Player implements Subject {
-    List&lt;Observer&gt; observers = new ArrayList&lt;&gt;();
-    void setCurrentPoints(int pts) {
-        this.currentPoints = pts;
-        if (pts &gt; sessionAvg) notifyObservers(); // auto-notify
+<span class="kw">class</span> <span class="cl">Player</span> <span class="kw">implements</span> <span class="cl">Subject</span> {
+    <span class="kw">private</span> <span class="cl">String</span> name;
+    <span class="kw">private int</span> currentPoints;
+    <span class="kw">private double</span> sessionAvg;
+    <span class="kw">private</span> <span class="cl">List</span>&lt;<span class="cl">Observer</span>&gt; observers = <span class="kw">new</span> <span class="cl">ArrayList</span>&lt;&gt;();
+
+    <span class="kw">public void</span> <span class="fn">attach</span>(<span class="cl">Observer</span> o) { observers.<span class="fn">add</span>(o); }
+    <span class="kw">public void</span> <span class="fn">detach</span>(<span class="cl">Observer</span> o) { observers.<span class="fn">remove</span>(o); }
+    <span class="kw">public void</span> <span class="fn">notifyObservers</span>() {
+        <span class="kw">for</span> (<span class="cl">Observer</span> o : observers) o.<span class="fn">update</span>(<span class="kw">this</span>);
     }
-    void notifyObservers() { for (Observer o : observers) o.update(this); }
+    <span class="kw">public void</span> <span class="fn">setCurrentPoints</span>(<span class="kw">int</span> pts) {
+        <span class="kw">this</span>.currentPoints = pts;
+        <span class="kw">if</span> (currentPoints > sessionAvg) <span class="fn">notifyObservers</span>();
+    }
+    <span class="kw">public</span> <span class="cl">String</span> <span class="fn">getName</span>()       { <span class="kw">return</span> name; }
+    <span class="kw">public int</span>    <span class="fn">getCurrentPoints</span>() { <span class="kw">return</span> currentPoints; }
 }
-class Fan implements Observer {
-    void update(Player p) { System.out.println(p.getName() + " exceeded avg!"); }
-}</div>
+<span class="kw">class</span> <span class="cl">Fan</span> <span class="kw">implements</span> <span class="cl">Observer</span> {
+    <span class="kw">public void</span> <span class="fn">update</span>(<span class="cl">Player</span> p) {
+        System.out.println(<span class="st">"Player "</span>+p.<span class="fn">getName</span>()+<span class="st">" exceeded avg with "</span>+p.<span class="fn">getCurrentPoints</span>());
+    }
+}</pre>
+    </div>
   </div>
 
+  <!-- STRATEGY -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Strategy</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Family of interchangeable algorithms. Pick one at runtime. No if/else chain needed.</div>
-    <div class="lbl">When to use</div><div class="val">Payment: CreditCard / PayPal / Cash. File parser: JSON / XML / CSV. Sorting algorithms.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface PaymentStrategy { void pay(double amount); }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Family of interchangeable algorithms. Pick one at runtime. Eliminates if/else chains.</span><span class="ar">عائلة من الخوارزميات القابلة للتبادل. اختر واحدة أثناء التشغيل. يُلغي سلاسل if/else.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Open/Closed — add new payment type = new class only, never touch OrderProcessor. Program to interfaces — OrderProcessor holds PaymentStrategy, not CreditCard.</span>
+      <span class="ar">Open/Closed — نوع دفع جديد = كلاس جديد فقط، لا تعديل على OrderProcessor. البرمجة للواجهات — يحمل PaymentStrategy لا CreditCard.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">PaymentStrategy</span> { <span class="kw">void</span> <span class="fn">pay</span>(<span class="kw">double</span> amount); }
 
-class CreditCard implements PaymentStrategy {
-    void pay(double amount) { System.out.println("Paid by card: " + amount); }
+<span class="kw">class</span> <span class="cl">CreditCardPayment</span> <span class="kw">implements</span> <span class="cl">PaymentStrategy</span> {
+    <span class="kw">public void</span> <span class="fn">pay</span>(<span class="kw">double</span> a) { System.out.println(<span class="st">"Paid $"</span>+a+<span class="st">" by card"</span>); }
 }
-class OrderProcessor {
-    PaymentStrategy strategy;
-    void processOrder(double total) { strategy.pay(total); } // no if/else!
+<span class="kw">class</span> <span class="cl">PayPalPayment</span> <span class="kw">implements</span> <span class="cl">PaymentStrategy</span> {
+    <span class="kw">public void</span> <span class="fn">pay</span>(<span class="kw">double</span> a) { System.out.println(<span class="st">"Paid $"</span>+a+<span class="st">" via PayPal"</span>); }
 }
-// Swap: processor.strategy = new PayPalPayment();</div>
+<span class="kw">class</span> <span class="cl">OrderProcessor</span> {
+    <span class="kw">private</span> <span class="cl">PaymentStrategy</span> strategy;
+    <span class="kw">public void</span> <span class="fn">setStrategy</span>(<span class="cl">PaymentStrategy</span> s) { strategy = s; }
+    <span class="kw">public void</span> <span class="fn">processOrder</span>(<span class="kw">double</span> total) {
+        strategy.<span class="fn">pay</span>(total); <span class="cm">// no if/else!</span>
+    }
+}
+
+<span class="cm">// Usage — swap strategy at runtime</span>
+<span class="cl">OrderProcessor</span> p = <span class="kw">new</span> <span class="cl">OrderProcessor</span>();
+p.<span class="fn">setStrategy</span>(<span class="kw">new</span> <span class="cl">CreditCardPayment</span>()); p.<span class="fn">processOrder</span>(<span class="nm">99.99</span>);
+p.<span class="fn">setStrategy</span>(<span class="kw">new</span> <span class="cl">PayPalPayment</span>());    p.<span class="fn">processOrder</span>(<span class="nm">49.99</span>);</pre>
+    </div>
   </div>
 
+  <!-- STATE -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">State</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Object changes its behavior when its internal state changes. Same method, different result.</div>
-    <div class="lbl">When to use</div><div class="val">Vending machine: IdleState vs HasMoneyState. Same pressButton() call behaves differently.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface VendingState { void insertCoin(VM m); void pressButton(VM m); }
-class IdleState implements VendingState {
-    void insertCoin(VM m) { m.setState(new HasMoneyState()); }
-    void pressButton(VM m) { System.out.println("Insert coin first"); }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Object changes behavior when its internal state changes — same method, different result per state.</span><span class="ar">الكائن يغير سلوكه عند تغير حالته الداخلية — نفس الطريقة، نتيجة مختلفة لكل حالة.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — each state handles its own behavior. Open/Closed — new state = new class only.</span>
+      <span class="ar">SRP — كل حالة تتولى سلوكها الخاص. Open/Closed — حالة جديدة = كلاس جديد فقط.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">VendingState</span> {
+    <span class="kw">void</span> <span class="fn">insertCoin</span>(<span class="cl">VendingMachine</span> m);
+    <span class="kw">void</span> <span class="fn">pressButton</span>(<span class="cl">VendingMachine</span> m);
 }
-class HasMoneyState implements VendingState {
-    void pressButton(VM m) { System.out.println("Dispensing..."); m.setState(new IdleState()); }
-}</div>
+<span class="kw">class</span> <span class="cl">IdleState</span> <span class="kw">implements</span> <span class="cl">VendingState</span> {
+    <span class="kw">public void</span> <span class="fn">insertCoin</span>(<span class="cl">VendingMachine</span> m) { m.<span class="fn">setState</span>(<span class="kw">new</span> <span class="cl">HasMoneyState</span>()); }
+    <span class="kw">public void</span> <span class="fn">pressButton</span>(<span class="cl">VendingMachine</span> m) { System.out.println(<span class="st">"Insert coin first"</span>); }
+}
+<span class="kw">class</span> <span class="cl">HasMoneyState</span> <span class="kw">implements</span> <span class="cl">VendingState</span> {
+    <span class="kw">public void</span> <span class="fn">insertCoin</span>(<span class="cl">VendingMachine</span> m) { System.out.println(<span class="st">"Coin already in"</span>); }
+    <span class="kw">public void</span> <span class="fn">pressButton</span>(<span class="cl">VendingMachine</span> m) {
+        System.out.println(<span class="st">"Dispensing..."</span>); m.<span class="fn">setState</span>(<span class="kw">new</span> <span class="cl">IdleState</span>());
+    }
+}
+<span class="kw">class</span> <span class="cl">VendingMachine</span> {
+    <span class="kw">private</span> <span class="cl">VendingState</span> state = <span class="kw">new</span> <span class="cl">IdleState</span>();
+    <span class="kw">public void</span> <span class="fn">setState</span>(<span class="cl">VendingState</span> s) { state = s; }
+    <span class="kw">public void</span> <span class="fn">insertCoin</span>()   { state.<span class="fn">insertCoin</span>(<span class="kw">this</span>); }
+    <span class="kw">public void</span> <span class="fn">pressButton</span>() { state.<span class="fn">pressButton</span>(<span class="kw">this</span>); }
+}</pre>
+    </div>
   </div>
 
+  <!-- ITERATOR -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Iterator</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Traverse a collection one by one WITHOUT knowing how it's stored internally.</div>
-    <div class="lbl">When to use</div><div class="val">Students in array, tree, or custom structure — all traversed with the same hasNext() / next().</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface Iterator&lt;T&gt; { boolean hasNext(); T next(); }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Traverse any collection sequentially without exposing its internal structure.</span><span class="ar">تصفح أي مجموعة بشكل تسلسلي دون كشف بنيتها الداخلية.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — client uses Iterator interface, never cares if collection is array, tree, or custom. SRP — collection manages data; Iterator manages traversal.</span>
+      <span class="ar">البرمجة للواجهات — العميل يستخدم Iterator بغض النظر عن نوع المجموعة. SRP — المجموعة تدير البيانات؛ Iterator يدير التصفح.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">Iterator</span>&lt;T&gt; { <span class="kw">boolean</span> <span class="fn">hasNext</span>(); T <span class="fn">next</span>(); }
 
-// Each collection provides its own iterator()
-// Usage — same code for any collection:
-Iterator&lt;String&gt; it = studentCollection.iterator();
-while (it.hasNext()) System.out.println(it.next());</div>
+<span class="kw">class</span> <span class="cl">StudentArray</span> {
+    <span class="kw">private</span> <span class="cl">String</span>[] students; <span class="kw">private int</span> size = <span class="nm">0</span>;
+    <span class="kw">public void</span> <span class="fn">add</span>(<span class="cl">String</span> s) { students[size++] = s; }
+
+    <span class="kw">public</span> <span class="cl">Iterator</span>&lt;<span class="cl">String</span>&gt; <span class="fn">iterator</span>() {
+        <span class="kw">return new</span> <span class="cl">Iterator</span>&lt;<span class="cl">String</span>&gt;() {
+            <span class="kw">int</span> i = <span class="nm">0</span>;
+            <span class="kw">public boolean</span> <span class="fn">hasNext</span>() { <span class="kw">return</span> i &lt; size; }
+            <span class="kw">public</span> <span class="cl">String</span>  <span class="fn">next</span>()    { <span class="kw">return</span> students[i++]; }
+        };
+    }
+}
+<span class="cm">// Same traversal code works for ANY collection type</span>
+<span class="cl">Iterator</span>&lt;<span class="cl">String</span>&gt; it = collection.<span class="fn">iterator</span>();
+<span class="kw">while</span> (it.<span class="fn">hasNext</span>()) System.out.println(it.<span class="fn">next</span>());</pre>
+    </div>
   </div>
 
+  <!-- TEMPLATE METHOD -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Template Method</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Parent defines the fixed ORDER of steps. Subclasses override only the steps that differ.</div>
-    <div class="lbl">When to use</div><div class="val">Reports: fetchData → calculateMetrics → format → save. Same order, only calculate() differs per report.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">abstract class ReportGenerator {
-    final void generateReport() {   // template method — fixed order
-        fetchData();
-        calculateMetrics();         // abstract — subclass overrides this
-        formatOutput();
-        saveFile();
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Parent defines the fixed ORDER of steps. Subclasses override ONLY the steps that differ.</span><span class="ar">الأب يحدد الترتيب الثابت للخطوات. الأبناء يتجاوزون الخطوات المختلفة فقط.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Open/Closed — new report type = new subclass only. SRP — parent owns the algorithm structure; subclass owns the specific step logic.</span>
+      <span class="ar">Open/Closed — نوع تقرير جديد = كلاس فرعي جديد. SRP — الأب يملك هيكل الخوارزمية؛ الابن يملك منطق الخطوة المحددة.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">abstract class</span> <span class="cl">ReportGenerator</span> {
+    <span class="cm">// Template method — fixed order, cannot be overridden</span>
+    <span class="kw">public final void</span> <span class="fn">generateReport</span>() {
+        <span class="fn">fetchData</span>();
+        <span class="fn">calculateMetrics</span>(); <span class="cm">// ← only this differs per report</span>
+        <span class="fn">formatOutput</span>();
+        <span class="fn">saveFile</span>();
     }
-    protected abstract void calculateMetrics();
+    <span class="kw">protected void</span> <span class="fn">fetchData</span>()    { System.out.println(<span class="st">"Fetching data..."</span>); }
+    <span class="kw">protected abstract void</span> <span class="fn">calculateMetrics</span>(); <span class="cm">// subclass implements</span>
+    <span class="kw">protected void</span> <span class="fn">formatOutput</span>() { System.out.println(<span class="st">"Formatting..."</span>); }
+    <span class="kw">protected void</span> <span class="fn">saveFile</span>()     { System.out.println(<span class="st">"Saving..."</span>); }
 }
-class SalesReport extends ReportGenerator {
-    void calculateMetrics() { System.out.println("Calculating sales..."); }
-}</div>
+<span class="kw">class</span> <span class="cl">SalesReport</span> <span class="kw">extends</span> <span class="cl">ReportGenerator</span> {
+    <span class="kw">protected void</span> <span class="fn">calculateMetrics</span>() { System.out.println(<span class="st">"Calculating sales"</span>); }
+}
+<span class="kw">class</span> <span class="cl">InventoryReport</span> <span class="kw">extends</span> <span class="cl">ReportGenerator</span> {
+    <span class="kw">protected void</span> <span class="fn">calculateMetrics</span>() { System.out.println(<span class="st">"Calculating stock"</span>); }
+}</pre>
+    </div>
   </div>
 
+  <!-- MEMENTO -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Memento</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Save a snapshot of an object's state and restore it later. Without exposing internals.</div>
-    <div class="lbl">When to use</div><div class="val">Text editor undo · Game save/load checkpoint.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">// 3 roles:
-// Originator  → creates Memento (snapshot) and restores from it
-// Memento     → stores the saved state (just data, no logic)
-// Caretaker   → Stack&lt;Memento&gt; history — push to save, pop to undo
-
-editor.type("Hello");  history.push(editor.save());
-editor.type(" World"); // now "Hello World"
-editor.restore(history.pop()); // back to "Hello"</div>
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Save and restore object state without exposing its internals. Three roles: Originator, Memento, Caretaker.</span><span class="ar">حفظ واستعادة حالة الكائن دون كشف تفاصيله. ثلاثة أدوار: المنشئ، الذاكرة، الحارس.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — Originator manages state, Memento stores snapshot, Caretaker manages history. Each has one job.</span>
+      <span class="ar">SRP — المنشئ يدير الحالة، Memento يخزن اللقطة، Caretaker يدير السجل. كل واحد له وظيفة واحدة.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">EditorMemento</span> { <span class="cm">// stores snapshot</span>
+    <span class="kw">final</span> <span class="cl">String</span> text;
+    <span class="cl">EditorMemento</span>(<span class="cl">String</span> t) { text = t; }
+}
+<span class="kw">class</span> <span class="cl">Editor</span> { <span class="cm">// Originator</span>
+    <span class="kw">private</span> <span class="cl">String</span> text = <span class="st">""</span>;
+    <span class="kw">public void</span> <span class="fn">type</span>(<span class="cl">String</span> s) { text += s; }
+    <span class="kw">public</span> <span class="cl">EditorMemento</span> <span class="fn">save</span>()                { <span class="kw">return new</span> <span class="cl">EditorMemento</span>(text); }
+    <span class="kw">public void</span>           <span class="fn">restore</span>(<span class="cl">EditorMemento</span> m) { text = m.text; }
+    <span class="kw">public</span> <span class="cl">String</span>         <span class="fn">getText</span>()              { <span class="kw">return</span> text; }
+}
+<span class="kw">class</span> <span class="cl">History</span> { <span class="cm">// Caretaker</span>
+    <span class="kw">private</span> <span class="cl">Stack</span>&lt;<span class="cl">EditorMemento</span>&gt; stack = <span class="kw">new</span> <span class="cl">Stack</span>&lt;&gt;();
+    <span class="kw">public void</span> <span class="fn">push</span>(<span class="cl">EditorMemento</span> m) { stack.<span class="fn">push</span>(m); }
+    <span class="kw">public</span> <span class="cl">EditorMemento</span> <span class="fn">pop</span>()       { <span class="kw">return</span> stack.<span class="fn">pop</span>(); }
+}
+<span class="cl">Editor</span> e = <span class="kw">new</span> <span class="cl">Editor</span>(); <span class="cl">History</span> h = <span class="kw">new</span> <span class="cl">History</span>();
+e.<span class="fn">type</span>(<span class="st">"Hello"</span>); h.<span class="fn">push</span>(e.<span class="fn">save</span>());
+e.<span class="fn">type</span>(<span class="st">" World"</span>); <span class="cm">// now "Hello World"</span>
+e.<span class="fn">restore</span>(h.<span class="fn">pop</span>()); <span class="cm">// back to "Hello"</span></pre>
+    </div>
   </div>
 
+  <!-- MEDIATOR -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Mediator</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Objects don't talk to each other directly — all communication goes through a central mediator.</div>
-    <div class="lbl">When to use</div><div class="val">Chat room: users don't know each other. All messages go through ChatRoom.sendMessage().</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">class ChatRoom implements ChatMediator {
-    List&lt;User&gt; users;
-    void sendMessage(String msg, User sender) {
-        for (User u : users)
-            if (u != sender) u.receive(sender.name + ": " + msg);
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Objects don't talk directly — all communication goes through a central mediator.</span><span class="ar">الكائنات لا تتحدث مباشرة — كل التواصل يمر عبر وسيط مركزي.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">SRP — each user only sends/receives messages. The mediator manages routing. Reduces chaotic coupling.</span>
+      <span class="ar">SRP — كل مستخدم يرسل/يستقبل فقط. الوسيط يدير التوجيه. يقلل الارتباط الفوضوي.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">ChatRoom</span> { <span class="cm">// Mediator</span>
+    <span class="kw">private</span> <span class="cl">List</span>&lt;<span class="cl">User</span>&gt; users = <span class="kw">new</span> <span class="cl">ArrayList</span>&lt;&gt;();
+    <span class="kw">void</span> <span class="fn">addUser</span>(<span class="cl">User</span> u) { users.<span class="fn">add</span>(u); }
+    <span class="kw">void</span> <span class="fn">sendMessage</span>(<span class="cl">String</span> msg, <span class="cl">User</span> sender) {
+        <span class="kw">for</span> (<span class="cl">User</span> u : users)
+            <span class="kw">if</span> (u != sender) u.<span class="fn">receive</span>(sender.name + <span class="st">": "</span> + msg);
     }
 }
-// Users only call mediator.sendMessage() — never call each other</div>
+<span class="kw">class</span> <span class="cl">User</span> {
+    <span class="cl">String</span> name; <span class="kw">private</span> <span class="cl">ChatRoom</span> room;
+    <span class="kw">void</span> <span class="fn">send</span>(<span class="cl">String</span> msg)    { room.<span class="fn">sendMessage</span>(msg, <span class="kw">this</span>); }
+    <span class="kw">void</span> <span class="fn">receive</span>(<span class="cl">String</span> msg) { System.out.println(name+<span class="st">" got: "</span>+msg); }
+}
+<span class="cm">// Users never reference each other directly</span>
+<span class="cl">ChatRoom</span> room = <span class="kw">new</span> <span class="cl">ChatRoom</span>();
+<span class="cl">User</span> ali = <span class="kw">new</span> <span class="cl">User</span>(); ali.name=<span class="st">"Ali"</span>; ali.room=room;
+room.<span class="fn">addUser</span>(ali); ali.<span class="fn">send</span>(<span class="st">"Hello!"</span>);</pre>
+    </div>
   </div>
 
+  <!-- VISITOR -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Visitor</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Add a new operation to existing objects WITHOUT modifying their classes.</div>
-    <div class="lbl">When to use</div><div class="val">Document (Paragraph, Image, Table) — add HTML export as a Visitor without touching each element class.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface DocumentVisitor { void visit(Paragraph p); void visit(Image i); }
-class HtmlExporter implements DocumentVisitor {
-    void visit(Paragraph p) { System.out.println("&lt;p&gt;" + p.text + "&lt;/p&gt;"); }
-    void visit(Image i)     { System.out.println("&lt;img src='" + i.src + "'/&gt;"); }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Add new operations to objects WITHOUT modifying their classes. New operation = new Visitor class.</span><span class="ar">إضافة عمليات جديدة للكائنات دون تعديل كلاساتها. عملية جديدة = كلاس Visitor جديد.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Open/Closed — add HTML export without touching Paragraph or Image. SRP — elements handle structure; visitors handle operations.</span>
+      <span class="ar">Open/Closed — أضف تصدير HTML دون تعديل Paragraph أو Image. SRP — العناصر تدير الهيكل؛ الزوار يديرون العمليات.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">DocumentVisitor</span> {
+    <span class="kw">void</span> <span class="fn">visit</span>(<span class="cl">Paragraph</span> p); <span class="kw">void</span> <span class="fn">visit</span>(<span class="cl">Image</span> i);
 }
-// Each element: accept(visitor) → visitor.visit(this)</div>
+<span class="kw">class</span> <span class="cl">Paragraph</span> { <span class="cl">String</span> text; <span class="kw">void</span> <span class="fn">accept</span>(<span class="cl">DocumentVisitor</span> v) { v.<span class="fn">visit</span>(<span class="kw">this</span>); } }
+<span class="kw">class</span> <span class="cl">Image</span>     { <span class="cl">String</span> src;  <span class="kw">void</span> <span class="fn">accept</span>(<span class="cl">DocumentVisitor</span> v) { v.<span class="fn">visit</span>(<span class="kw">this</span>); } }
+
+<span class="cm">// New operation: HTML export (no change to Paragraph or Image!)</span>
+<span class="kw">class</span> <span class="cl">HtmlExporter</span> <span class="kw">implements</span> <span class="cl">DocumentVisitor</span> {
+    <span class="kw">public void</span> <span class="fn">visit</span>(<span class="cl">Paragraph</span> p) { System.out.println(<span class="st">"&lt;p&gt;"</span>+p.text+<span class="st">"&lt;/p&gt;"</span>); }
+    <span class="kw">public void</span> <span class="fn">visit</span>(<span class="cl">Image</span> i)     { System.out.println(<span class="st">"&lt;img src='"</span>+i.src+<span class="st">"'/&gt;"</span>); }
+}
+<span class="cm">// Usage</span>
+<span class="cl">DocumentVisitor</span> exporter = <span class="kw">new</span> <span class="cl">HtmlExporter</span>();
+elements.<span class="fn">forEach</span>(el -> el.<span class="fn">accept</span>(exporter));</pre>
+    </div>
   </div>
 
+  <!-- INTERPRETER -->
   <div class="pat">
     <div class="pat-header"><span class="pat-name">Interpreter</span><span class="badge bbh">Behavioral</span></div>
-    <div class="lbl">Intent</div><div class="val">Define a grammar and interpret sentences in that language.</div>
-    <div class="lbl">When to use</div><div class="val">Math parser: "10 + 3 - 2" · SQL parser · Regex engine.</div>
-    <div class="lbl">Implementation</div>
-    <div class="impl">interface Expression { int interpret(); }
-class NumberExpr implements Expression { int n; int interpret(){ return n; } }
-class AddExpr implements Expression {
-    Expression left, right;
-    int interpret() { return left.interpret() + right.interpret(); }
+    <div class="lbl"><span class="en">Intent</span><span class="ar">الهدف</span></div>
+    <div class="val"><span class="en">Define a grammar and interpret sentences in that language.</span><span class="ar">تحديد قواعد لغة وتفسير جملها.</span></div>
+    <div class="prin">
+      <strong><span class="en">OOP Principle</span><span class="ar">مبدأ OOP</span></strong>
+      <span class="en">Program to interfaces — all expressions implement the same interpret() interface. Open/Closed — new grammar rule = new Expression class.</span>
+      <span class="ar">البرمجة للواجهات — جميع التعبيرات تطبّق واجهة interpret(). Open/Closed — قاعدة جديدة = كلاس Expression جديد.</span>
+    </div>
+    <div class="lbl"><span class="en">Implementation</span><span class="ar">التطبيق</span></div>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" onclick="copyCode(this)">copy</button></div>
+      <pre class="code"><span class="kw">interface</span> <span class="cl">Expression</span> { <span class="kw">int</span> <span class="fn">interpret</span>(); }
+
+<span class="kw">class</span> <span class="cl">NumberExpr</span> <span class="kw">implements</span> <span class="cl">Expression</span> {
+    <span class="kw">int</span> n; <span class="cl">NumberExpr</span>(<span class="kw">int</span> n) { <span class="kw">this</span>.n = n; }
+    <span class="kw">public int</span> <span class="fn">interpret</span>() { <span class="kw">return</span> n; }
 }
-// "10 + 3" = new AddExpr(new NumberExpr(10), new NumberExpr(3)).interpret() = 13</div>
+<span class="kw">class</span> <span class="cl">AddExpr</span> <span class="kw">implements</span> <span class="cl">Expression</span> {
+    <span class="cl">Expression</span> left, right;
+    <span class="kw">public int</span> <span class="fn">interpret</span>() { <span class="kw">return</span> left.<span class="fn">interpret</span>() + right.<span class="fn">interpret</span>(); }
+}
+<span class="kw">class</span> <span class="cl">SubtractExpr</span> <span class="kw">implements</span> <span class="cl">Expression</span> {
+    <span class="cl">Expression</span> left, right;
+    <span class="kw">public int</span> <span class="fn">interpret</span>() { <span class="kw">return</span> left.<span class="fn">interpret</span>() - right.<span class="fn">interpret</span>(); }
+}
+
+<span class="cm">// Interpret "10 + 3 - 2"</span>
+<span class="cl">Expression</span> expr = <span class="kw">new</span> <span class="cl">SubtractExpr</span>() {{
+    left = <span class="kw">new</span> <span class="cl">AddExpr</span>() {{ left=<span class="kw">new</span> <span class="cl">NumberExpr</span>(<span class="nm">10</span>); right=<span class="kw">new</span> <span class="cl">NumberExpr</span>(<span class="nm">3</span>); }};
+    right = <span class="kw">new</span> <span class="cl">NumberExpr</span>(<span class="nm">2</span>);
+}};
+System.out.println(expr.<span class="fn">interpret</span>()); <span class="cm">// 11</span></pre>
+    </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ───── CODE SMELLS ───── -->
+<!-- ═══════════════════════════════════════════
+     CODE SMELLS
+════════════════════════════════════════════ -->
 <div class="sec">
-  <div class="sec-title smell">Code smells — what, examples, and fixes</div>
+  <div class="sec-title smell"><span class="en">Code smells — signals of bad design</span><span class="ar">روائح الكود — إشارات التصميم السيئ</span></div>
   <div class="box" style="margin-bottom:12px;">
-    <div class="box-title">What is a code smell?</div>
-    <div class="box-body">A warning sign that your code has a bad design choice — not a bug, but a signal that problems will come later.</div>
+    <div class="box-body">
+      <span class="en">A <strong>code smell</strong> is NOT a bug — it is a warning sign that your design has a problem that will cause trouble later.</span>
+      <span class="ar"><strong>رائحة الكود</strong> ليست خطأً برمجياً — بل إشارة تحذير أن تصميمك فيه مشكلة ستسبب متاعب لاحقاً.</span>
+    </div>
   </div>
 
   <div class="smell-box">
-    <div class="smell-name">1. Switch statement / Long if-else on types</div>
-    <div class="val">Checking type/payment/format with if-else or switch. Every new type forces you to edit this method.</div>
-    <div class="code">if (type.equals("CreditCard"))  { ... }
-else if (type.equals("PayPal")) { ... }
-else if (type.equals("Cash"))   { ... }  // adding "Bitcoin"? edit this method!</div>
-    <div class="smell-fix">Fix: <strong>Strategy Pattern</strong> — each type becomes its own class. New type = new class only. Existing code untouched.</div>
+    <div class="smell-name"><span class="en">1. Switch statement / Long if-else on types</span><span class="ar">١. جملة switch / سلسلة if-else طويلة على الأنواع</span></div>
+    <div class="val"><span class="en">Every new type forces you to edit this method. Violates Open/Closed Principle.</span><span class="ar">كل نوع جديد يجبرك على تعديل هذه الطريقة. يخالف مبدأ Open/Closed.</span></div>
+    <div class="code-wrap" style="margin-top:8px;">
+      <div class="code-header"><span class="code-lang">smell</span></div>
+      <pre class="code"><span class="kw">if</span> (type.<span class="fn">equals</span>(<span class="st">"CreditCard"</span>)) { ... }
+<span class="kw">else if</span> (type.<span class="fn">equals</span>(<span class="st">"PayPal"</span>)) { ... }
+<span class="kw">else if</span> (type.<span class="fn">equals</span>(<span class="st">"Cash"</span>))   { ... }
+<span class="cm">// Adding "Bitcoin"? You must edit this method!</span></pre>
+    </div>
+    <div class="smell-fix"><span class="en"><strong>Fix:</strong> Strategy Pattern — each type becomes its own class. New type = add a class, never edit existing code.</span><span class="ar"><strong>الحل:</strong> نمط Strategy — كل نوع يصبح كلاسه الخاص. نوع جديد = أضف كلاساً ولا تعدّل الكود الموجود.</span></div>
   </div>
 
   <div class="smell-box">
-    <div class="smell-name">2. Tight coupling (especially through inheritance)</div>
-    <div class="val">Classes depend directly on concrete classes instead of interfaces. Changing one breaks others.</div>
-    <div class="code">class OrderProcessor {
-    CreditCardPayment payment = new CreditCardPayment(); // tightly coupled!
-}</div>
-    <div class="smell-fix">Fix: <strong>Program to interfaces</strong> — use PaymentStrategy interface. Inject the implementation. Loose coupling.</div>
+    <div class="smell-name"><span class="en">2. Tight coupling (depending on concrete classes)</span><span class="ar">٢. الارتباط الشديد (الاعتماد على الكلاسات المحددة)</span></div>
+    <div class="val"><span class="en">Classes depend directly on concrete classes instead of interfaces. Changing one breaks others.</span><span class="ar">الكلاسات تعتمد على كلاسات محددة بدلاً من الواجهات. تغيير واحد يكسر الباقي.</span></div>
+    <div class="code-wrap" style="margin-top:8px;">
+      <div class="code-header"><span class="code-lang">smell</span></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">OrderProcessor</span> {
+    <span class="cl">CreditCardPayment</span> payment = <span class="kw">new</span> <span class="cl">CreditCardPayment</span>(); <span class="cm">// tightly coupled!</span>
+}</pre>
+    </div>
+    <div class="smell-fix"><span class="en"><strong>Fix:</strong> Program to interfaces — use PaymentStrategy. Inject the concrete class from outside (Dependency Injection).</span><span class="ar"><strong>الحل:</strong> برمجة للواجهات — استخدم PaymentStrategy. أدخل الكلاس المحدد من الخارج (Dependency Injection).</span></div>
   </div>
 
   <div class="smell-box">
-    <div class="smell-name">3. Long method / Long class</div>
-    <div class="val">One method or class doing too many things. Hard to read, test, and maintain.</div>
-    <div class="code">void processOrder() {
-    // validate ... 20 lines
-    // calculate total ... 15 lines
-    // process payment ... 20 lines
-    // send email ... 15 lines   ← this is one giant mess
-}</div>
-    <div class="smell-fix">Fix: <strong>Extract methods</strong> and apply <strong>Single Responsibility Principle (SRP)</strong> — one class = one job. Split into validateOrder(), calculateTotal(), processPayment(), sendEmail().</div>
+    <div class="smell-name"><span class="en">3. Long method / Long class</span><span class="ar">٣. الطريقة الطويلة / الكلاس الطويل</span></div>
+    <div class="val"><span class="en">One method or class doing too many things. Hard to read, test, and maintain.</span><span class="ar">طريقة أو كلاس يفعل أشياء كثيرة جداً. صعب القراءة والاختبار والصيانة.</span></div>
+    <div class="code-wrap" style="margin-top:8px;">
+      <div class="code-header"><span class="code-lang">smell</span></div>
+      <pre class="code"><span class="kw">void</span> <span class="fn">processOrder</span>() {
+    <span class="cm">// validate ... 20 lines</span>
+    <span class="cm">// calculate total ... 15 lines</span>
+    <span class="cm">// process payment ... 20 lines</span>
+    <span class="cm">// send email ... 15 lines  ← one giant mess</span>
+}</pre>
+    </div>
+    <div class="smell-fix"><span class="en"><strong>Fix:</strong> SRP — split into validateOrder(), calculateTotal(), processPayment(), sendEmail(). One method = one job.</span><span class="ar"><strong>الحل:</strong> SRP — اقسم إلى validateOrder()، calculateTotal()، processPayment()، sendEmail(). طريقة واحدة = وظيفة واحدة.</span></div>
   </div>
 
   <div class="smell-box">
-    <div class="smell-name">4. Poor abstraction (class doing unrelated things)</div>
-    <div class="val">A class or method handles things that don't belong together.</div>
-    <div class="code">class User {
-    void login() { ... }
-    void sendEmail() { ... }    // email logic doesn't belong in User!
-    void generateReport() { ... }
-}</div>
-    <div class="smell-fix">Fix: <strong>SRP + Facade / separate classes</strong> — User handles user logic. EmailService handles email. ReportService handles reports.</div>
+    <div class="smell-name"><span class="en">4. Poor abstraction (class doing unrelated things)</span><span class="ar">٤. التجريد السيئ (الكلاس يفعل أشياء غير مترابطة)</span></div>
+    <div class="val"><span class="en">A class handles things that don't belong together. Violates SRP.</span><span class="ar">الكلاس يتعامل مع أشياء لا تنتمي لبعضها. يخالف SRP.</span></div>
+    <div class="code-wrap" style="margin-top:8px;">
+      <div class="code-header"><span class="code-lang">smell</span></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">User</span> {
+    <span class="kw">void</span> <span class="fn">login</span>() { ... }
+    <span class="kw">void</span> <span class="fn">sendEmail</span>() { ... }     <span class="cm">// email doesn't belong in User!</span>
+    <span class="kw">void</span> <span class="fn">generateReport</span>() { ... } <span class="cm">// reports don't either!</span>
+}</pre>
+    </div>
+    <div class="smell-fix"><span class="en"><strong>Fix:</strong> SRP — User handles user logic only. Create EmailService, ReportService as separate classes.</span><span class="ar"><strong>الحل:</strong> SRP — User يدير منطق المستخدم فقط. أنشئ EmailService و ReportService ككلاسات منفصلة.</span></div>
   </div>
 
   <div class="smell-box">
-    <div class="smell-name">5. Duplicate code</div>
-    <div class="val">Same logic copy-pasted in multiple places. Fix one → must fix all. Easy to miss one.</div>
-    <div class="code">// SalesReport class:
-void fetchData() { connect(); query("sales"); }
-// InventoryReport class:
-void fetchData() { connect(); query("inventory"); }  // copy-paste!</div>
-    <div class="smell-fix">Fix: <strong>Template Method Pattern</strong> — put the common steps in a parent class. Only override what differs.</div>
+    <div class="smell-name"><span class="en">5. Duplicate code</span><span class="ar">٥. ازدواجية الكود</span></div>
+    <div class="val"><span class="en">Same logic copy-pasted in multiple places. Fix one → must fix all. Easy to miss one.</span><span class="ar">نفس المنطق مكرر في أماكن متعددة. إصلاح واحد يعني إصلاح الجميع. سهل أن تنسى واحداً.</span></div>
+    <div class="code-wrap" style="margin-top:8px;">
+      <div class="code-header"><span class="code-lang">smell</span></div>
+      <pre class="code"><span class="cm">// In SalesReport:</span>
+<span class="kw">void</span> <span class="fn">fetchData</span>() { connect(); query(<span class="st">"sales"</span>); }
+<span class="cm">// In InventoryReport (copy-pasted!):</span>
+<span class="kw">void</span> <span class="fn">fetchData</span>() { connect(); query(<span class="st">"inventory"</span>); }</pre>
+    </div>
+    <div class="smell-fix"><span class="en"><strong>Fix:</strong> Template Method — put shared steps in parent class. Subclasses override only what differs.</span><span class="ar"><strong>الحل:</strong> Template Method — ضع الخطوات المشتركة في الكلاس الأب. الأبناء يتجاوزون فقط ما يختلف.</span></div>
   </div>
 
   <div class="smell-box">
-    <div class="smell-name">6. Lack of separation of concerns</div>
-    <div class="val">Business logic mixed with UI or database code in the same place.</div>
-    <div class="code">class ProductView {
-    void render() {
-        // fetch from DB... 10 lines
-        // business calculations... 10 lines
-        // display HTML... 10 lines  ← all 3 concerns in one place!
+    <div class="smell-name"><span class="en">6. Lack of separation of concerns</span><span class="ar">٦. غياب فصل الاهتمامات</span></div>
+    <div class="val"><span class="en">Business logic mixed with UI or database code in the same place.</span><span class="ar">منطق العمل مخلوط مع كود الواجهة أو قاعدة البيانات في نفس المكان.</span></div>
+    <div class="code-wrap" style="margin-top:8px;">
+      <div class="code-header"><span class="code-lang">smell</span></div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">ProductView</span> {
+    <span class="kw">void</span> <span class="fn">render</span>() {
+        <span class="cm">// fetch from DB ... 10 lines</span>
+        <span class="cm">// business calculations ... 10 lines</span>
+        <span class="cm">// display HTML ... 10 lines  ← 3 concerns in one place!</span>
     }
-}</div>
-    <div class="smell-fix">Fix: <strong>MVC Pattern</strong> — Model handles data, View handles display, Controller handles logic. Each has one concern.</div>
+}</pre>
+    </div>
+    <div class="smell-fix"><span class="en"><strong>Fix:</strong> MVC Pattern — Model handles data, View handles display, Controller handles logic. Each has one concern.</span><span class="ar"><strong>الحل:</strong> نمط MVC — Model يدير البيانات، View يدير العرض، Controller يدير المنطق. كل طرف له اهتمام واحد.</span></div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ───── MVC ───── -->
+<!-- ═══════════════════════════════════════════
+     MVC
+════════════════════════════════════════════ -->
 <div class="sec">
-  <div class="sec-title mvc">MVC and combined design patterns</div>
+  <div class="sec-title mvc"><span class="en">MVC and combined design patterns</span><span class="ar">MVC والأنماط المدمجة</span></div>
 
   <div class="mvc-row">
-    <div class="mvc-label" style="color:#3C3489;background:#EEEDFE;">M</div>
+    <div class="mvc-label" style="color:#3C3489;background:var(--cr-bg);">M</div>
     <div class="mvc-content">
-      <div class="mvc-main">Model — data and business logic</div>
-      <div class="mvc-sub">Classes for each DB table. Knows API endpoints. Manages application data and rules. Has NO idea how anything looks on screen.</div>
+      <div class="mvc-main"><span class="en">Model — data and business logic</span><span class="ar">Model — البيانات ومنطق العمل</span></div>
+      <div class="mvc-sub"><span class="en">Classes for each DB table. Knows API endpoints. Manages data and rules. Has NO idea how anything looks on screen.</span><span class="ar">كلاسات لكل جدول في قاعدة البيانات. يعرف نقاط الـ API. يدير البيانات والقواعد. لا يعلم شيئاً عن شكل الواجهة.</span></div>
     </div>
   </div>
-
   <div class="mvc-row">
-    <div class="mvc-label" style="color:#085041;background:#E1F5EE;">V</div>
+    <div class="mvc-label" style="color:#085041;background:var(--st-bg);">V</div>
     <div class="mvc-content">
-      <div class="mvc-main">View — the user interface (UI)</div>
-      <div class="mvc-sub">What the user sees. Displays data from the Model. Sends user actions (clicks, inputs) to the Controller. Contains NO business logic.</div>
+      <div class="mvc-main"><span class="en">View — the user interface</span><span class="ar">View — واجهة المستخدم</span></div>
+      <div class="mvc-sub"><span class="en">What the user sees. Displays data from Model. Sends user actions to Controller. Contains NO business logic.</span><span class="ar">ما يراه المستخدم. يعرض بيانات Model. يرسل أفعال المستخدم للـ Controller. لا يحتوي على منطق عمل.</span></div>
     </div>
   </div>
-
   <div class="mvc-row">
-    <div class="mvc-label" style="color:#633806;background:#FAEEDA;">C</div>
+    <div class="mvc-label" style="color:#633806;background:var(--bh-bg);">C</div>
     <div class="mvc-content">
-      <div class="mvc-main">Controller — the middleman</div>
-      <div class="mvc-sub">Sits between Model and View. Receives user input, validates it, updates the Model, then tells View to refresh. Logic lives here.</div>
+      <div class="mvc-main"><span class="en">Controller — the middleman</span><span class="ar">Controller — الوسيط</span></div>
+      <div class="mvc-sub"><span class="en">Sits between Model and View. Receives input, validates it, updates Model, tells View to refresh.</span><span class="ar">يجلس بين Model و View. يستقبل المدخلات، يتحقق منها، يحدّث Model، يأمر View بالتحديث.</span></div>
     </div>
   </div>
 
   <div style="margin-top:1.2rem;">
-    <div class="box-title" style="font-size:14px;margin-bottom:10px;">Design patterns used inside MVC</div>
+    <div class="box-title" style="font-size:14px;margin-bottom:10px;"><span class="en">Design patterns used inside MVC</span><span class="ar">أنماط التصميم المستخدمة داخل MVC</span></div>
     <div class="comb-grid">
-      <div class="comb-card" style="border-top:3px solid #EF9F27;">
+      <div class="comb-card" style="border-top:3px solid var(--bh-accent);">
         <div class="comb-pat">Observer</div>
-        <div class="comb-where">Model (Subject) notifies View (Observer) on every state change. View auto-updates.</div>
+        <div class="comb-where"><span class="en">Model (Subject) notifies View (Observer) on state change.</span><span class="ar">Model (Subject) يُخطر View (Observer) عند تغيير الحالة.</span></div>
       </div>
-      <div class="comb-card" style="border-top:3px solid #EF9F27;">
+      <div class="comb-card" style="border-top:3px solid var(--bh-accent);">
         <div class="comb-pat">Strategy</div>
-        <div class="comb-where">Controller uses Strategy to handle different user actions — interchangeable and extendable.</div>
+        <div class="comb-where"><span class="en">Controller handles different actions with interchangeable strategies.</span><span class="ar">Controller يعالج الأفعال المختلفة باستراتيجيات قابلة للتبادل.</span></div>
       </div>
-      <div class="comb-card" style="border-top:3px solid #AFA9EC;">
+      <div class="comb-card" style="border-top:3px solid var(--cr-accent);">
         <div class="comb-pat">Singleton</div>
-        <div class="comb-where">One shared Model or Controller instance across the whole app (e.g. one DB connection).</div>
+        <div class="comb-where"><span class="en">One shared Model/Controller instance across the app.</span><span class="ar">نسخة واحدة مشتركة من Model/Controller في التطبيق.</span></div>
       </div>
-      <div class="comb-card" style="border-top:3px solid #5DCAA5;">
+      <div class="comb-card" style="border-top:3px solid var(--st-accent);">
         <div class="comb-pat">Composite</div>
-        <div class="comb-where">View: UI components nested inside each other — buttons in panels in windows.</div>
+        <div class="comb-where"><span class="en">View: UI components nested inside each other.</span><span class="ar">View: مكونات UI متداخلة داخل بعضها.</span></div>
       </div>
-      <div class="comb-card" style="border-top:3px solid #AFA9EC;">
+      <div class="comb-card" style="border-top:3px solid var(--cr-accent);">
         <div class="comb-pat">Factory Method</div>
-        <div class="comb-where">Controller creates View or Model objects without depending on concrete types.</div>
+        <div class="comb-where"><span class="en">Controller creates View/Model without concrete types.</span><span class="ar">Controller ينشئ View/Model دون الاعتماد على الكلاسات المحددة.</span></div>
       </div>
     </div>
   </div>
 
   <div class="mcq-box" style="margin-top:1.2rem;">
-    <strong>MCQ answers — memorize these:</strong><br>
-    Who handles user input? → <strong>Controller</strong><br>
-    Model ↔ View relationship uses which pattern? → <strong>Observer</strong><br>
-    Controller handles different actions using? → <strong>Strategy</strong><br>
-    Model contains? → <strong>Business logic + application data</strong><br>
-    Which statement is TRUE about MVC? → <strong>Controller mediates between View and Model</strong><br>
-    Can View directly modify the Model? → <strong>No</strong>
+    <strong><span class="en">MCQ answers — memorize:</span><span class="ar">إجابات الأسئلة الموضوعية — احفظها:</span></strong><br>
+    <span class="en">Who handles user input? → <strong>Controller</strong></span><span class="ar">من يعالج مدخلات المستخدم؟ → <strong>Controller</strong></span><br>
+    <span class="en">Model ↔ View uses which pattern? → <strong>Observer</strong></span><span class="ar">Model ↔ View يستخدمان أي نمط؟ → <strong>Observer</strong></span><br>
+    <span class="en">Controller handles different actions using? → <strong>Strategy</strong></span><span class="ar">Controller يعالج الأفعال المختلفة باستخدام؟ → <strong>Strategy</strong></span><br>
+    <span class="en">Model contains? → <strong>Business logic + application data</strong></span><span class="ar">Model يحتوي على؟ → <strong>منطق العمل + بيانات التطبيق</strong></span><br>
+    <span class="en">TRUE about MVC? → <strong>Controller mediates between View and Model</strong></span><span class="ar">الصحيح عن MVC؟ → <strong>Controller يتوسط بين View و Model</strong></span>
   </div>
 </div>
 
-<div style="text-align:center;padding:2rem 0 1rem;color:#999;font-size:12px;">CPIT 252 — Design Patterns · Good luck on your exam!</div>
+<div style="text-align:center;padding:2rem 0 1rem;color:var(--text4);font-size:12px;">
+  CPIT 252 · Design Patterns ·
+  <span class="en">Good luck on your exam!</span>
+  <span class="ar">بالتوفيق في الاختبار!</span>
+</div>
 
 </div>
+<script>
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('btn-light').classList.toggle('active', t==='light');
+  document.getElementById('btn-dark').classList.toggle('active', t==='dark');
+}
+function setLang(l) {
+  document.documentElement.setAttribute('data-lang', l);
+  document.documentElement.setAttribute('lang', l);
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-ar').classList.toggle('active', l==='ar');
+}
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copied!';
+    setTimeout(() => btn.textContent = 'copy', 1500);
+  });
+}
+</script>
 </body>
 </html>
