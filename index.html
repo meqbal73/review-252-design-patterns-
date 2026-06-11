@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPIT 252 — Design Patterns Cheat Sheet</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f0;color:#1a1a1a;font-size:14px;line-height:1.6;}
+  .page{max-width:960px;margin:0 auto;padding:2rem 1.5rem;}
+  h1{font-size:26px;font-weight:700;margin-bottom:4px;}
+  .subtitle{color:#666;font-size:14px;margin-bottom:2rem;}
+  .sec{margin-bottom:2.5rem;}
+  .sec-title{font-size:19px;font-weight:700;margin-bottom:1rem;padding:8px 14px;border-radius:8px;}
+  .sec-title.def{background:#e8e8e8;color:#1a1a1a;}
+  .sec-title.cr{background:#EEEDFE;color:#26215C;}
+  .sec-title.st{background:#E1F5EE;color:#04342C;}
+  .sec-title.bh{background:#FAEEDA;color:#412402;}
+  .sec-title.smell{background:#FCEBEB;color:#501313;}
+  .sec-title.mvc{background:#E6F1FB;color:#042C53;}
+  .box{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .box-title{font-weight:700;font-size:14px;margin-bottom:5px;}
+  .box-body{font-size:13px;color:#444;line-height:1.6;}
+  .pat{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:13px 15px;margin-bottom:9px;}
+  .pat-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .pat-name{font-size:15px;font-weight:700;}
+  .badge{font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;}
+  .bcr{background:#EEEDFE;color:#3C3489;}
+  .bst{background:#E1F5EE;color:#085041;}
+  .bbh{background:#FAEEDA;color:#633806;}
+  .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#888;margin-top:8px;margin-bottom:2px;}
+  .val{font-size:13px;color:#333;line-height:1.55;}
+  .impl{font-size:12px;font-family:'Courier New',monospace;background:#f4f4f0;border:1px solid #e0e0e0;border-radius:6px;padding:7px 10px;margin-top:4px;line-height:1.6;color:#1a1a1a;}
+  .pills{margin-top:8px;}
+  .pill{display:inline-block;font-size:12px;background:#f0f0ec;color:#444;padding:3px 10px;border-radius:99px;margin:2px;}
+  .divider{height:1px;background:#e0e0e0;margin:2rem 0;}
+  .smell-box{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #E24B4A;}
+  .smell-name{font-size:14px;font-weight:700;color:#A32D2D;margin-bottom:4px;}
+  .smell-fix{background:#EAF3DE;border-radius:6px;padding:8px 10px;margin-top:6px;font-size:12.5px;color:#27500A;}
+  .code{font-size:12px;font-family:'Courier New',monospace;background:#f4f4f0;border:1px solid #e0e0e0;border-radius:6px;padding:8px 10px;margin-top:6px;line-height:1.6;color:#1a1a1a;white-space:pre;}
+  .mvc-row{display:grid;grid-template-columns:70px 1fr;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;margin-bottom:8px;}
+  .mvc-label{display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;background:#f4f4f0;}
+  .mvc-content{padding:11px 14px;background:#fff;}
+  .mvc-main{font-size:14px;font-weight:700;margin-bottom:3px;}
+  .mvc-sub{font-size:12.5px;color:#555;line-height:1.55;}
+  .comb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px;}
+  .comb-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:10px 12px;}
+  .comb-pat{font-size:13px;font-weight:700;margin-bottom:3px;}
+  .comb-where{font-size:12px;color:#555;}
+  .mcq-box{background:#E6F1FB;border-radius:8px;padding:12px 15px;margin-top:12px;font-size:13px;line-height:1.8;color:#042C53;}
+  .mcq-box strong{color:#042C53;}
+  @media(max-width:600px){.row2,.row3{grid-template-columns:1fr;}.mvc-row{grid-template-columns:50px 1fr;}}
+  @media print{body{background:#fff;}.page{padding:1rem;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>CPIT 252 — Design Patterns</h1>
+<div class="subtitle">Complete exam cheat sheet — intent · usage · implementation · code smells · MVC</div>
+
+<!-- ───── WHAT ARE DESIGN PATTERNS ───── -->
+<div class="sec">
+  <div class="sec-title def">What are design patterns?</div>
+  <div class="box">
+    <div class="box-body"><strong>Proven, reusable solutions</strong> to commonly occurring problems in software design.<br>Not copy-paste code — they are <strong>ideas / templates</strong> you apply to your situation.</div>
+  </div>
+  <div class="row3">
+    <div class="box"><div class="box-title">Solve complex problems</div><div class="box-body">Give you a tested solution instead of inventing one from scratch.</div></div>
+    <div class="box"><div class="box-title">Improve readability</div><div class="box-body">Other developers recognize the pattern and understand your code faster.</div></div>
+    <div class="box"><div class="box-title">Loose coupling</div><div class="box-body">Add new features without breaking existing code. (Open/Closed Principle)</div></div>
+  </div>
+</div>
+
+<!-- ───── 3 CATEGORIES ───── -->
+<div class="sec">
+  <div class="sec-title def">3 categories — one line each</div>
+  <div class="row3">
+    <div class="box" style="border-top:4px solid #AFA9EC;">
+      <div class="box-title" style="color:#3C3489;">Creational</div>
+      <div class="box-body">HOW objects are <strong>created</strong>.<br>Not just <code>new</code> — smarter ways to build objects.</div>
+      <div class="pills"><span class="pill">Singleton</span><span class="pill">Prototype</span><span class="pill">Builder</span><span class="pill">Factory Method</span><span class="pill">Abstract Factory</span></div>
+    </div>
+    <div class="box" style="border-top:4px solid #5DCAA5;">
+      <div class="box-title" style="color:#085041;">Structural</div>
+      <div class="box-body">HOW objects are <strong>composed</strong> and connected.</div>
+      <div class="pills"><span class="pill">Adapter</span><span class="pill">Bridge</span><span class="pill">Composite</span><span class="pill">Decorator</span><span class="pill">Facade</span><span class="pill">Flyweight</span><span class="pill">Proxy</span></div>
+    </div>
+    <div class="box" style="border-top:4px solid #EF9F27;">
+      <div class="box-title" style="color:#633806;">Behavioral</div>
+      <div class="box-body">HOW objects <strong>communicate</strong> and share responsibilities.</div>
+      <div class="pills"><span class="pill">Chain of Resp.</span><span class="pill">Command</span><span class="pill">Observer</span><span class="pill">Strategy</span><span class="pill">State</span><span class="pill">Iterator</span><span class="pill">Template Method</span><span class="pill">Memento</span><span class="pill">Mediator</span><span class="pill">Visitor</span><span class="pill">Interpreter</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ───── CREATIONAL ───── -->
+<div class="sec">
+  <div class="sec-title cr">Creational patterns</div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Singleton</span><span class="badge bcr">Creational</span></div>
+    <div class="lbl">Intent</div><div class="val">Only ONE instance of a class exists in the whole app. Everyone shares it.</div>
+    <div class="lbl">When to use</div><div class="val">Database connection · App logger · Config settings — things shared and created only once.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">class Database {
+    private static Database instance;
+    private Database() { }          // private = no one can do new Database()
+
+    public static Database getInstance() {
+        if (instance == null)
+            instance = new Database();
+        return instance;
+    }
+}
+// Usage
+Database db1 = Database.getInstance();
+Database db2 = Database.getInstance();
+// db1 == db2  → TRUE, same object</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Prototype</span><span class="badge bcr">Creational</span></div>
+    <div class="lbl">Intent</div><div class="val">Clone / copy an existing object instead of building a new one from scratch.</div>
+    <div class="lbl">When to use</div><div class="val">Game character duplication · Any object that is expensive to create.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">class Character implements Cloneable {
+    String name; int health;
+    public Character clone() {
+        return (Character) super.clone();
+    }
+}
+Character c1 = new Character("Ali", 100);
+Character c2 = c1.clone();   // cheap copy
+c2.name = "Ali2";            // c1.name still "Ali"</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Builder</span><span class="badge bcr">Creational</span></div>
+    <div class="lbl">Intent</div><div class="val">Build complex objects step by step. Same building process, different results.</div>
+    <div class="lbl">When to use</div><div class="val">Burger with many optional items · HTTP request with many optional fields.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">Burger b = new Burger.Builder()
+    .withBun("sesame")
+    .withPatty("beef")
+    .withCheese()
+    .withSauce("bbq")
+    .build();
+// Builder holds each field. build() returns final object.</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Factory Method</span><span class="badge bcr">Creational</span></div>
+    <div class="lbl">Intent</div><div class="val">Parent says "create a transport" — subclass decides if it's a Truck or Ship.</div>
+    <div class="lbl">When to use</div><div class="val">When you don't know in advance which type to create. Easy to add new types later.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">abstract class Logistics {
+    abstract Transport createTransport(); // factory method
+    void planDelivery() { createTransport().deliver(); }
+}
+class RoadLogistics extends Logistics {
+    Transport createTransport() { return new Truck(); }
+}
+class SeaLogistics extends Logistics {
+    Transport createTransport() { return new Ship(); }
+}</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Abstract Factory</span><span class="badge bcr">Creational</span></div>
+    <div class="lbl">Intent</div><div class="val">Create a whole FAMILY of related objects. Swap the factory = swap everything at once.</div>
+    <div class="lbl">When to use</div><div class="val">UI toolkit: WindowsFactory → Windows button + checkbox. MacFactory → Mac button + checkbox.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface UIFactory {
+    Button createButton();
+    Checkbox createCheckbox();
+}
+class MacFactory implements UIFactory {
+    Button createButton()     { return new MacButton();   }
+    Checkbox createCheckbox() { return new MacCheckbox(); }
+}
+// Swap MacFactory ↔ WindowsFactory = swap whole UI kit</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ───── STRUCTURAL ───── -->
+<div class="sec">
+  <div class="sec-title st">Structural patterns</div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Adapter</span><span class="badge bst">Structural</span></div>
+    <div class="lbl">Intent</div><div class="val">Make two incompatible interfaces work together. Like a power plug adapter.</div>
+    <div class="lbl">When to use</div><div class="val">Client sends city name. Library expects GPS coordinates. Adapter converts city → lat/lon → delegates.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">class FajrTimeAdapter implements FajrTimeCity {
+    private FajrTimeGeo geo;
+    FajrTimeAdapter(FajrTimeGeo geo) { this.geo = geo; }
+
+    public String getFajrTime(String city) {
+        double lat = getLatitude(city);
+        double lon = getLongitude(city);
+        return geo.getFajrTime(lat, lon); // delegate to adaptee
+    }
+}</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Bridge</span><span class="badge bst">Structural</span></div>
+    <div class="lbl">Intent</div><div class="val">Separate "what it is" from "how it works" so both can change independently.</div>
+    <div class="lbl">When to use</div><div class="val">Shape (Circle/Square) + Color (Red/Blue) — combine freely without a class explosion.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">abstract class Shape {
+    protected Color color;               // holds implementation
+    Shape(Color c) { color = c; }
+    abstract void draw();
+}
+class Circle extends Shape {
+    void draw() { System.out.println("Circle in " + color.fill()); }
+}
+// Circle+Red, Circle+Blue, Square+Red... all work with 2+2 classes</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Composite</span><span class="badge bst">Structural</span></div>
+    <div class="lbl">Intent</div><div class="val">Treat a single object and a group of objects the SAME way. Tree structure.</div>
+    <div class="lbl">When to use</div><div class="val">File system: File and Folder both have getSize(). Folder's size = sum of its children's sizes.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface FileSystemItem { int getSize(); }
+class File implements FileSystemItem {
+    int size;
+    public int getSize() { return size; }
+}
+class Folder implements FileSystemItem {
+    List&lt;FileSystemItem&gt; children = new ArrayList&lt;&gt;();
+    public int getSize() {
+        return children.stream().mapToInt(FileSystemItem::getSize).sum();
+    }
+}</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Decorator</span><span class="badge bst">Structural</span></div>
+    <div class="lbl">Intent</div><div class="val">Add new behavior to an object by WRAPPING it — without changing its class. Stack layers.</div>
+    <div class="lbl">When to use</div><div class="val">Coffee: SimpleCoffee → wrap with Milk → wrap with Sugar. Each wrapper adds cost + description.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">abstract class CoffeeDecorator implements Coffee {
+    protected Coffee coffee;
+    CoffeeDecorator(Coffee c) { coffee = c; }
+}
+class MilkDecorator extends CoffeeDecorator {
+    public double getCost()        { return coffee.getCost() + 0.5; }
+    public String getDescription() { return coffee.getDescription() + ", Milk"; }
+}
+// Usage: new SugarDecorator(new MilkDecorator(new SimpleCoffee()))</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Facade</span><span class="badge bst">Structural</span></div>
+    <div class="lbl">Intent</div><div class="val">One simple interface hides a complex subsystem. One call does everything.</div>
+    <div class="lbl">When to use</div><div class="val">HomeTheater.watchMovie() → dims lights + turns on TV + sets sound. Client calls ONE method.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">class HomeTheaterFacade {
+    TV tv; SoundSystem sound; Lights lights;
+    void watchMovie() {
+        lights.dim(20);
+        tv.on(); tv.setInput("HDMI");
+        sound.on(); sound.setVolume(30);
+    }
+}
+// Client only needs: theater.watchMovie();</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Flyweight</span><span class="badge bst">Structural</span></div>
+    <div class="lbl">Intent</div><div class="val">Save memory by SHARING the common (intrinsic) state across thousands of objects.</div>
+    <div class="lbl">When to use</div><div class="val">Forest: 1M trees but only 2 tree types. Type/texture = shared (intrinsic). x,y position = unique (extrinsic).</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">class TreeType { String name, texture; void draw(int x, int y){...} }  // shared
+
+class TreeFactory {
+    static Map&lt;String,TreeType&gt; cache = new HashMap&lt;&gt;();
+    static TreeType get(String name, String tex) {
+        return cache.computeIfAbsent(name, k -&gt; new TreeType(name,tex));
+    }
+}
+class Tree { int x,y; TreeType type; }  // unique position per tree</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Proxy</span><span class="badge bst">Structural</span></div>
+    <div class="lbl">Intent</div><div class="val">A stand-in that controls access to the real object. Same interface. Adds validation / lazy-load / cache.</div>
+    <div class="lbl">When to use</div><div class="val">SpeechToText Proxy: checks API key first. If valid → create real service + delegate. If invalid → deny access.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">class SpeechProxy implements SpeechToTextService {
+    private RealSpeechToText real;
+    private String apiKey;
+
+    public String convertSpeechToText(String file) {
+        if (!isValid()) return "Access denied";
+        if (real == null) real = new RealSpeechToText(); // lazy init
+        return real.convertSpeechToText(file);
+    }
+    private boolean isValid() { return apiKey != null &amp;&amp; !apiKey.isEmpty(); }
+}</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ───── BEHAVIORAL ───── -->
+<div class="sec">
+  <div class="sec-title bh">Behavioral patterns</div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Chain of Responsibility</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Pass a request along a chain. Each handler processes it OR passes it to the next one.</div>
+    <div class="lbl">When to use</div><div class="val">Support tickets: Level1 → Level2 → Level3 Manager. Each handles what it can.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">abstract class Handler {
+    protected Handler next;
+    void setNext(Handler h) { next = h; }
+    abstract void handle(int level);
+}
+class Level1 extends Handler {
+    void handle(int level) {
+        if (level == 1) System.out.println("L1 handled");
+        else if (next != null) next.handle(level); // pass forward
+    }
+}</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Command</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Wrap a request as an object so you can queue it, log it, or UNDO it.</div>
+    <div class="lbl">When to use</div><div class="val">Text editor Undo/Redo: every action = Command object. Stack stores history. Undo = pop + call undo().</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface Command { void execute(); void undo(); }
+
+class WriteCommand implements Command {
+    TextEditor editor; String text;
+    void execute() { editor.write(text); }
+    void undo()    { editor.deleteLast(text.length()); }
+}
+// Invoker stores Stack&lt;Command&gt;. run() pushes. undo() pops.</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Observer</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Subject notifies ALL observers automatically when its state changes. One-to-many.</div>
+    <div class="lbl">When to use</div><div class="val">Player scores points → all Fans notified. Model changes → all Views refresh (this is MVC!).</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">// Subject interface: attach(), detach(), notifyObservers()
+// Observer interface: update(Player p)
+
+class Player implements Subject {
+    List&lt;Observer&gt; observers = new ArrayList&lt;&gt;();
+    void setCurrentPoints(int pts) {
+        this.currentPoints = pts;
+        if (pts &gt; sessionAvg) notifyObservers(); // auto-notify
+    }
+    void notifyObservers() { for (Observer o : observers) o.update(this); }
+}
+class Fan implements Observer {
+    void update(Player p) { System.out.println(p.getName() + " exceeded avg!"); }
+}</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Strategy</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Family of interchangeable algorithms. Pick one at runtime. No if/else chain needed.</div>
+    <div class="lbl">When to use</div><div class="val">Payment: CreditCard / PayPal / Cash. File parser: JSON / XML / CSV. Sorting algorithms.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface PaymentStrategy { void pay(double amount); }
+
+class CreditCard implements PaymentStrategy {
+    void pay(double amount) { System.out.println("Paid by card: " + amount); }
+}
+class OrderProcessor {
+    PaymentStrategy strategy;
+    void processOrder(double total) { strategy.pay(total); } // no if/else!
+}
+// Swap: processor.strategy = new PayPalPayment();</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">State</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Object changes its behavior when its internal state changes. Same method, different result.</div>
+    <div class="lbl">When to use</div><div class="val">Vending machine: IdleState vs HasMoneyState. Same pressButton() call behaves differently.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface VendingState { void insertCoin(VM m); void pressButton(VM m); }
+class IdleState implements VendingState {
+    void insertCoin(VM m) { m.setState(new HasMoneyState()); }
+    void pressButton(VM m) { System.out.println("Insert coin first"); }
+}
+class HasMoneyState implements VendingState {
+    void pressButton(VM m) { System.out.println("Dispensing..."); m.setState(new IdleState()); }
+}</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Iterator</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Traverse a collection one by one WITHOUT knowing how it's stored internally.</div>
+    <div class="lbl">When to use</div><div class="val">Students in array, tree, or custom structure — all traversed with the same hasNext() / next().</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface Iterator&lt;T&gt; { boolean hasNext(); T next(); }
+
+// Each collection provides its own iterator()
+// Usage — same code for any collection:
+Iterator&lt;String&gt; it = studentCollection.iterator();
+while (it.hasNext()) System.out.println(it.next());</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Template Method</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Parent defines the fixed ORDER of steps. Subclasses override only the steps that differ.</div>
+    <div class="lbl">When to use</div><div class="val">Reports: fetchData → calculateMetrics → format → save. Same order, only calculate() differs per report.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">abstract class ReportGenerator {
+    final void generateReport() {   // template method — fixed order
+        fetchData();
+        calculateMetrics();         // abstract — subclass overrides this
+        formatOutput();
+        saveFile();
+    }
+    protected abstract void calculateMetrics();
+}
+class SalesReport extends ReportGenerator {
+    void calculateMetrics() { System.out.println("Calculating sales..."); }
+}</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Memento</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Save a snapshot of an object's state and restore it later. Without exposing internals.</div>
+    <div class="lbl">When to use</div><div class="val">Text editor undo · Game save/load checkpoint.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">// 3 roles:
+// Originator  → creates Memento (snapshot) and restores from it
+// Memento     → stores the saved state (just data, no logic)
+// Caretaker   → Stack&lt;Memento&gt; history — push to save, pop to undo
+
+editor.type("Hello");  history.push(editor.save());
+editor.type(" World"); // now "Hello World"
+editor.restore(history.pop()); // back to "Hello"</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Mediator</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Objects don't talk to each other directly — all communication goes through a central mediator.</div>
+    <div class="lbl">When to use</div><div class="val">Chat room: users don't know each other. All messages go through ChatRoom.sendMessage().</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">class ChatRoom implements ChatMediator {
+    List&lt;User&gt; users;
+    void sendMessage(String msg, User sender) {
+        for (User u : users)
+            if (u != sender) u.receive(sender.name + ": " + msg);
+    }
+}
+// Users only call mediator.sendMessage() — never call each other</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Visitor</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Add a new operation to existing objects WITHOUT modifying their classes.</div>
+    <div class="lbl">When to use</div><div class="val">Document (Paragraph, Image, Table) — add HTML export as a Visitor without touching each element class.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface DocumentVisitor { void visit(Paragraph p); void visit(Image i); }
+class HtmlExporter implements DocumentVisitor {
+    void visit(Paragraph p) { System.out.println("&lt;p&gt;" + p.text + "&lt;/p&gt;"); }
+    void visit(Image i)     { System.out.println("&lt;img src='" + i.src + "'/&gt;"); }
+}
+// Each element: accept(visitor) → visitor.visit(this)</div>
+  </div>
+
+  <div class="pat">
+    <div class="pat-header"><span class="pat-name">Interpreter</span><span class="badge bbh">Behavioral</span></div>
+    <div class="lbl">Intent</div><div class="val">Define a grammar and interpret sentences in that language.</div>
+    <div class="lbl">When to use</div><div class="val">Math parser: "10 + 3 - 2" · SQL parser · Regex engine.</div>
+    <div class="lbl">Implementation</div>
+    <div class="impl">interface Expression { int interpret(); }
+class NumberExpr implements Expression { int n; int interpret(){ return n; } }
+class AddExpr implements Expression {
+    Expression left, right;
+    int interpret() { return left.interpret() + right.interpret(); }
+}
+// "10 + 3" = new AddExpr(new NumberExpr(10), new NumberExpr(3)).interpret() = 13</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ───── CODE SMELLS ───── -->
+<div class="sec">
+  <div class="sec-title smell">Code smells — what, examples, and fixes</div>
+  <div class="box" style="margin-bottom:12px;">
+    <div class="box-title">What is a code smell?</div>
+    <div class="box-body">A warning sign that your code has a bad design choice — not a bug, but a signal that problems will come later.</div>
+  </div>
+
+  <div class="smell-box">
+    <div class="smell-name">1. Switch statement / Long if-else on types</div>
+    <div class="val">Checking type/payment/format with if-else or switch. Every new type forces you to edit this method.</div>
+    <div class="code">if (type.equals("CreditCard"))  { ... }
+else if (type.equals("PayPal")) { ... }
+else if (type.equals("Cash"))   { ... }  // adding "Bitcoin"? edit this method!</div>
+    <div class="smell-fix">Fix: <strong>Strategy Pattern</strong> — each type becomes its own class. New type = new class only. Existing code untouched.</div>
+  </div>
+
+  <div class="smell-box">
+    <div class="smell-name">2. Tight coupling (especially through inheritance)</div>
+    <div class="val">Classes depend directly on concrete classes instead of interfaces. Changing one breaks others.</div>
+    <div class="code">class OrderProcessor {
+    CreditCardPayment payment = new CreditCardPayment(); // tightly coupled!
+}</div>
+    <div class="smell-fix">Fix: <strong>Program to interfaces</strong> — use PaymentStrategy interface. Inject the implementation. Loose coupling.</div>
+  </div>
+
+  <div class="smell-box">
+    <div class="smell-name">3. Long method / Long class</div>
+    <div class="val">One method or class doing too many things. Hard to read, test, and maintain.</div>
+    <div class="code">void processOrder() {
+    // validate ... 20 lines
+    // calculate total ... 15 lines
+    // process payment ... 20 lines
+    // send email ... 15 lines   ← this is one giant mess
+}</div>
+    <div class="smell-fix">Fix: <strong>Extract methods</strong> and apply <strong>Single Responsibility Principle (SRP)</strong> — one class = one job. Split into validateOrder(), calculateTotal(), processPayment(), sendEmail().</div>
+  </div>
+
+  <div class="smell-box">
+    <div class="smell-name">4. Poor abstraction (class doing unrelated things)</div>
+    <div class="val">A class or method handles things that don't belong together.</div>
+    <div class="code">class User {
+    void login() { ... }
+    void sendEmail() { ... }    // email logic doesn't belong in User!
+    void generateReport() { ... }
+}</div>
+    <div class="smell-fix">Fix: <strong>SRP + Facade / separate classes</strong> — User handles user logic. EmailService handles email. ReportService handles reports.</div>
+  </div>
+
+  <div class="smell-box">
+    <div class="smell-name">5. Duplicate code</div>
+    <div class="val">Same logic copy-pasted in multiple places. Fix one → must fix all. Easy to miss one.</div>
+    <div class="code">// SalesReport class:
+void fetchData() { connect(); query("sales"); }
+// InventoryReport class:
+void fetchData() { connect(); query("inventory"); }  // copy-paste!</div>
+    <div class="smell-fix">Fix: <strong>Template Method Pattern</strong> — put the common steps in a parent class. Only override what differs.</div>
+  </div>
+
+  <div class="smell-box">
+    <div class="smell-name">6. Lack of separation of concerns</div>
+    <div class="val">Business logic mixed with UI or database code in the same place.</div>
+    <div class="code">class ProductView {
+    void render() {
+        // fetch from DB... 10 lines
+        // business calculations... 10 lines
+        // display HTML... 10 lines  ← all 3 concerns in one place!
+    }
+}</div>
+    <div class="smell-fix">Fix: <strong>MVC Pattern</strong> — Model handles data, View handles display, Controller handles logic. Each has one concern.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ───── MVC ───── -->
+<div class="sec">
+  <div class="sec-title mvc">MVC and combined design patterns</div>
+
+  <div class="mvc-row">
+    <div class="mvc-label" style="color:#3C3489;background:#EEEDFE;">M</div>
+    <div class="mvc-content">
+      <div class="mvc-main">Model — data and business logic</div>
+      <div class="mvc-sub">Classes for each DB table. Knows API endpoints. Manages application data and rules. Has NO idea how anything looks on screen.</div>
+    </div>
+  </div>
+
+  <div class="mvc-row">
+    <div class="mvc-label" style="color:#085041;background:#E1F5EE;">V</div>
+    <div class="mvc-content">
+      <div class="mvc-main">View — the user interface (UI)</div>
+      <div class="mvc-sub">What the user sees. Displays data from the Model. Sends user actions (clicks, inputs) to the Controller. Contains NO business logic.</div>
+    </div>
+  </div>
+
+  <div class="mvc-row">
+    <div class="mvc-label" style="color:#633806;background:#FAEEDA;">C</div>
+    <div class="mvc-content">
+      <div class="mvc-main">Controller — the middleman</div>
+      <div class="mvc-sub">Sits between Model and View. Receives user input, validates it, updates the Model, then tells View to refresh. Logic lives here.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div class="box-title" style="font-size:14px;margin-bottom:10px;">Design patterns used inside MVC</div>
+    <div class="comb-grid">
+      <div class="comb-card" style="border-top:3px solid #EF9F27;">
+        <div class="comb-pat">Observer</div>
+        <div class="comb-where">Model (Subject) notifies View (Observer) on every state change. View auto-updates.</div>
+      </div>
+      <div class="comb-card" style="border-top:3px solid #EF9F27;">
+        <div class="comb-pat">Strategy</div>
+        <div class="comb-where">Controller uses Strategy to handle different user actions — interchangeable and extendable.</div>
+      </div>
+      <div class="comb-card" style="border-top:3px solid #AFA9EC;">
+        <div class="comb-pat">Singleton</div>
+        <div class="comb-where">One shared Model or Controller instance across the whole app (e.g. one DB connection).</div>
+      </div>
+      <div class="comb-card" style="border-top:3px solid #5DCAA5;">
+        <div class="comb-pat">Composite</div>
+        <div class="comb-where">View: UI components nested inside each other — buttons in panels in windows.</div>
+      </div>
+      <div class="comb-card" style="border-top:3px solid #AFA9EC;">
+        <div class="comb-pat">Factory Method</div>
+        <div class="comb-where">Controller creates View or Model objects without depending on concrete types.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq-box" style="margin-top:1.2rem;">
+    <strong>MCQ answers — memorize these:</strong><br>
+    Who handles user input? → <strong>Controller</strong><br>
+    Model ↔ View relationship uses which pattern? → <strong>Observer</strong><br>
+    Controller handles different actions using? → <strong>Strategy</strong><br>
+    Model contains? → <strong>Business logic + application data</strong><br>
+    Which statement is TRUE about MVC? → <strong>Controller mediates between View and Model</strong><br>
+    Can View directly modify the Model? → <strong>No</strong>
+  </div>
+</div>
+
+<div style="text-align:center;padding:2rem 0 1rem;color:#999;font-size:12px;">CPIT 252 — Design Patterns · Good luck on your exam!</div>
+
+</div>
+</body>
+</html>
